@@ -1,0 +1,17 @@
+{
+    "name": "haydar/hoppala",
+    "description": "The news portal for Teknasyon Bootcamp",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Haydar ŞAHİN",
+            "email": "haydarsahin34@gmail.com"
+        }
+    ],
+    "require": {}
+}
