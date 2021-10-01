@@ -79,6 +79,13 @@ class Router
             exit;
             
         } elseif (is_array($callback)) {
+
+            /**
+             * Callback is array so calling a controller. 
+             * Let's assign a instance of controller to callback's first member
+             */
+            $callback[0] = new $callback[0];
+
         }
 
         // Call callback function
