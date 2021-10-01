@@ -6,10 +6,12 @@ class Router
 {
     protected array $routes;
     protected Request $request;
+    protected Response $response;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
 
     /**
@@ -69,23 +71,19 @@ class Router
         $callback = $this->routes[$method][$path] ?? false;
 
         if ($callback === false) {
-            http_response_code(404);
+            $this->response->statusCode(404);
             echo "Opps seems like someone lost their way.";
             exit;
-
         } elseif (is_string($callback)) {
             // Return view if callback is string
             return $this->view($callback);
             exit;
-            
         } elseif (is_array($callback)) {
-
             /**
              * Callback is array so calling a controller. 
              * Let's assign a instance of controller to callback's first member
              */
             $callback[0] = new $callback[0];
-
         }
 
         // Call callback function
