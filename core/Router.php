@@ -6,18 +6,10 @@ class Router
 {
     protected array $routes;
     protected Request $request;
-    protected Response $response;
 
-    /**
-     * Generate Out little Router 
-     * 
-     * @param Request $request
-     * @param Response $response
-     */
-    public function __construct(Request $request, Response $response)
+    public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->response = $response;
     }
 
     /**
@@ -77,7 +69,7 @@ class Router
         $callback = $this->routes[$method][$path] ?? false;
 
         if ($callback === false) {
-            $this->response->setStatusCode(404);
+            http_response_code(404);
             echo "Opps seems like someone lost their way.";
             exit;
 
