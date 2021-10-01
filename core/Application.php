@@ -10,11 +10,13 @@ class Application
 {
     public Router $router;
     public Request $request;
+    public Application $app;
 
     public function __construct()
     {
         $this->request = new Request();
         $this->router = new Router($this->request, $this->response);
+        self::$app = $this;
     }
 
     public function run()
