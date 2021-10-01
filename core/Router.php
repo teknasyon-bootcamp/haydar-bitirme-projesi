@@ -105,6 +105,6 @@ class Router
         // Buffer the views
         ob_start();
         include_once AppRootDirectory . "/views/$viewAdress.php";
-        ob_get_flush();
+        return ob_get_clean();
     }
 }
