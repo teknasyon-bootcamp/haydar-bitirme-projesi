@@ -10,7 +10,7 @@ class Application
 {
     public Router $router;
     public Request $request;
-    public Application $app;
+    public static Application $app;
 
     public function __construct()
     {
