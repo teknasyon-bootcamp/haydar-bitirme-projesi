@@ -23,6 +23,6 @@ class Application
     public function run()
     {
         // Review incoming request
-        $this->router->resolve();
+        echo $this->router->resolve();
     }
 }

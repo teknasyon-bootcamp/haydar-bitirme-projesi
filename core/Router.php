@@ -80,10 +80,13 @@ class Router
             $this->response->setStatusCode(404);
             echo "Opps seems like someone lost their way.";
             exit;
+
         } elseif (is_string($callback)) {
             // Return view if callback is string
-            $this->view($callback);
+            return $this->view($callback);
             exit;
+            
+        } elseif (is_array($callback)) {
         }
 
         // Call callback function
