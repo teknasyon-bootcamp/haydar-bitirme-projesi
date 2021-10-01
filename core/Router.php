@@ -82,7 +82,7 @@ class Router
         return call_user_func($callback);
     }
 
-    public function view($viewAdress, ?array $data = null)
+    public function view($viewAdress, ?array $data = [])
     {
         /**
          * Serialize path
@@ -91,11 +91,16 @@ class Router
          */
         $viewAdress = str_replace('.', '/', $viewAdress);
 
-        // Buffer the views
-        ob_start();
         // Convert $data array to variables
         extract($data);
+
+        // Buffer the views
+        ob_start();
         include_once AppRootDirectory . "/views/$viewAdress.php";
         ob_get_flush();
+    }
+
+    protected function layoutContent()
+    {
     }
 }
