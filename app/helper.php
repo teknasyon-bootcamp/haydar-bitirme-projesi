@@ -7,5 +7,5 @@ use Core\Application;
 
 function view($viewAdress, ?array $data = [])
 {
-    Application::$app->router->view($viewAdress, $data);
+    return Application::$app->router->view($viewAdress, $data);
 }
