@@ -99,8 +99,4 @@ class Router
         include_once AppRootDirectory . "/views/$viewAdress.php";
         ob_get_flush();
     }
-
-    protected function layoutContent()
-    {
-    }
 }
