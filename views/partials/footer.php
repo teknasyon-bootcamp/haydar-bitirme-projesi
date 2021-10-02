@@ -5,7 +5,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm-5">
-                  <img src="images/logo.svg" class="footer-logo" alt="" />
+                  <img src="<?= publicPath('images/logo.svg')?>" class="footer-logo" alt="" />
                   <h5 class="font-weight-normal mt-4 mb-5">
                     Newspaper is your news, entertainment, music fashion website. We
                     provide you with the latest breaking news and videos straight from
@@ -153,14 +153,14 @@
       </div>
     </div>
     <!-- inject:js -->
-    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <script src="<?= publicPath('vendors/js/vendor.bundle.base.js')?>"></script>
     <!-- endinject -->
     <!-- plugin js for this page -->
-    <script src="vendors/aos/dist/aos.js/aos.js"></script>
+    <script src="<?= publicPath('vendors/aos/dist/aos.js/aos.js')?>"></script>
     <!-- End plugin js for this page -->
     <!-- Custom js for this page-->
-    <script src="js/demo.js"></script>
-    <script src="js/jquery.easeScroll.js"></script>
+    <script src="<?= publicPath('js/demo.js')?>"></script>
+    <script src="<?= publicPath('js/jquery.easeScroll.js')?>"></script>
     <!-- End custom js for this page-->
   </body>
 </html>

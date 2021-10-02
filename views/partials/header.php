@@ -9,15 +9,15 @@
     <!-- plugin css for this page -->
     <link
       rel="stylesheet"
-      href="vendors/mdi/css/materialdesignicons.min.css"
+      href="<?= publicPath('vendors/mdi/css/materialdesignicons.min.css')?>"
     />
-    <link rel="stylesheet" href="vendors/aos/dist/aos.css/aos.css" />
+    <link rel="stylesheet" href="<?= publicPath('vendors/aos/dist/aos.css/aos.css')?>" />
 
     <!-- End plugin css for this page -->
-    <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="shortcut icon" href="<?= publicPath('images/favicon.png')?>" />
 
     <!-- inject:css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="<?= publicPath('css/style.css')?>">
     <!-- endinject -->
   </head>
 
