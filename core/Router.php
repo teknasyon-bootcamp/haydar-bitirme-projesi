@@ -76,7 +76,7 @@ class Router
             exit;
         } elseif (is_string($callback)) {
             // Return view if callback is string
-            return $this->view($callback);
+            return view($callback);
             exit;
         } elseif (is_array($callback)) {
             /**
@@ -88,23 +88,5 @@ class Router
 
         // Call callback function
         return call_user_func($callback, $this->request);
-    }
-
-    public function view($viewAdress, ?array $data = [])
-    {
-        /**
-         * Serialize path
-         * 
-         * Ex : dashboard.pages.home => dashboard/pages/home
-         */
-        $viewAdress = str_replace('.', '/', $viewAdress);
-
-        // Convert $data array to variables
-        extract($data);
-
-        // Buffer the views
-        ob_start();
-        include_once AppRootDirectory . "/views/$viewAdress.php";
-        return ob_get_clean();
-    }
+    }   
 }
