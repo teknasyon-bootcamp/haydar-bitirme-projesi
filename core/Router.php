@@ -87,7 +87,7 @@ class Router
         }
 
         // Call callback function
-        return call_user_func($callback);
+        return call_user_func($callback, $this->request);
     }
 
     public function view($viewAdress, ?array $data = [])
