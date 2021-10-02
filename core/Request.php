@@ -29,4 +29,11 @@ class Request
 
         return $method;
     }
+
+    public function getBody()
+    {
+        $data = $_REQUEST;
+        return $data;
+    }
+
 }
