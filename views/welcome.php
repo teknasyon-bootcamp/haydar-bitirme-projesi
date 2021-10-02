@@ -25,7 +25,7 @@
     <div class="row" data-aos="fade-up">
       <div class="col-xl-8 stretch-card grid-margin">
         <div class="position-relative">
-          <img src="images/dashboard/banner.jpg" alt="banner" class="img-fluid" />
+          <img src="<?= publicPath('images/dashboard/banner.jpg') ?>" alt="banner" class="img-fluid" />
           <div class="banner-content">
             <div class="badge badge-danger fs-12 font-weight-bold mb-3">
               global news
@@ -54,7 +54,7 @@
                 </div>
               </div>
               <div class="rotate-img">
-                <img src="images/dashboard/home_1.jpg" alt="thumb" class="img-fluid img-lg" />
+                <img src="<?= publicPath('images/dashboard/home_1.jpg') ?>" alt="thumb" class="img-fluid img-lg" />
               </div>
             </div>
 
@@ -66,7 +66,7 @@
                 </div>
               </div>
               <div class="rotate-img">
-                <img src="images/dashboard/home_2.jpg" alt="thumb" class="img-fluid img-lg" />
+                <img src="<?= publicPath('images/dashboard/home_2.jpg') ?>" alt="thumb" class="img-fluid img-lg" />
               </div>
             </div>
 
@@ -78,7 +78,7 @@
                 </div>
               </div>
               <div class="rotate-img">
-                <img src="images/dashboard/home_3.jpg" alt="thumb" class="img-fluid img-lg" />
+                <img src="<?= publicPath('images/dashboard/home_3.jpg') ?>" alt="thumb" class="img-fluid img-lg" />
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@
               <div class="col-sm-4 grid-margin">
                 <div class="position-relative">
                   <div class="rotate-img">
-                    <img src="images/dashboard/home_4.jpg" alt="thumb" class="img-fluid" />
+                    <img src="<?= publicPath('images/dashboard/home_4.jpg') ?>" alt="thumb" class="img-fluid" />
                   </div>
                   <div class="badge-positioned">
                     <span class="badge badge-danger font-weight-bold">Flash news</span>
@@ -140,7 +140,7 @@
               <div class="col-sm-4 grid-margin">
                 <div class="position-relative">
                   <div class="rotate-img">
-                    <img src="images/dashboard/home_5.jpg" alt="thumb" class="img-fluid" />
+                    <img src="<?= publicPath('images/dashboard/home_5.jpg') ?>" alt="thumb" class="img-fluid" />
                   </div>
                   <div class="badge-positioned">
                     <span class="badge badge-danger font-weight-bold">Flash news</span>
@@ -165,7 +165,7 @@
               <div class="col-sm-4">
                 <div class="position-relative">
                   <div class="rotate-img">
-                    <img src="images/dashboard/home_6.jpg" alt="thumb" class="img-fluid" />
+                    <img src="<?= publicPath('images/dashboard/home_6.jpg') ?>" alt="thumb" class="img-fluid" />
                   </div>
                   <div class="badge-positioned">
                     <span class="badge badge-danger font-weight-bold">Flash news</span>
