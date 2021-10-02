@@ -36,4 +36,13 @@ class Request
         return $data;
     }
 
+    public function __get($name)
+    {       
+        $bodyData = $this->getBody();
+
+        if (array_key_exists($name, $bodyData)) {
+            return $bodyData[$name];
+        }
+    }
+
 }
