@@ -6,7 +6,7 @@ use Core\Application;
 
 function view($viewAdress, ?array $data = [])
 {
-    return Application::$app->router->view($viewAdress, $data);
+    return Application::$app->view->render($viewAdress, $data);
 }
 
 function publicPath(?string $path = null)
