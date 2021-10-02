@@ -55,7 +55,7 @@ class Request
      * @return Request $property 
      */
     public function __get($name)
-    {       
+    {
         $bodyData = $this->getParams();
 
         if (array_key_exists($name, $bodyData)) {
@@ -63,4 +63,14 @@ class Request
         }
     }
 
+
+    /**
+     * Return all params from request
+     * 
+     * @return Array $data
+     */
+    public function all()
+    {
+        return $this->getParams();
+    }
 }
