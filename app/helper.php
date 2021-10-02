@@ -11,7 +11,6 @@ function view($viewAdress, ?array $data = [])
 
 function publicPath(?string $path = null)
 {
-    $dd = $_SERVER['HTTP_HOST']."/$path"; 
-    var_dump($dd);
-    exit;  
+    $dd = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/$path"; 
+    return $dd;
 }
