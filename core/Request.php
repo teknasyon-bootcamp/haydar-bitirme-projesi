@@ -42,7 +42,7 @@ class Request
      * 
      * @return Array $data
      */
-    public function getBody()
+    public function getParams()
     {
         $data = $_REQUEST;
         return $data;
@@ -56,7 +56,7 @@ class Request
      */
     public function __get($name)
     {       
-        $bodyData = $this->getBody();
+        $bodyData = $this->getParams();
 
         if (array_key_exists($name, $bodyData)) {
             return $bodyData[$name];
