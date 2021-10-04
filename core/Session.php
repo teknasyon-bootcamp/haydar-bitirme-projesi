@@ -23,19 +23,16 @@ class Session
 
     public static function getFlash(string $key, mixed $default = null): mixed
     {
-        session_write_close();
         return $_SESSION['flash'][$key] ?? $default;
     }
 
     public static function set(string $key, mixed $value): void
     {
-        session_write_close();
         $_SESSION[$key] = $value;
     }
 
     public static function flash(string $key, mixed $value): void
     {
-        session_write_close();
         $_SESSION['flash'][$key] = $value;
     }
 
