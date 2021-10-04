@@ -15,6 +15,12 @@ class Session
         return $_SESSION[$key] ?? $default;
     }
 
+    public static function delete(string $key): void
+    {
+        unset($_SESSION[$key]);
+    }
+
+
     public static function getFlash(string $key, mixed $default = null): mixed
     {
         session_write_close();
