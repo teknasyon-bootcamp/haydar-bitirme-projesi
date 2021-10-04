@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Core;
 
@@ -47,13 +47,29 @@ abstract class Validation
             }
         }
 
-        return $this->errors;
+
+
+        if ($this->anyError()) {
+            Session::flash('errors', $this->errors);
+
+            setStatusCode(422);
+
+            return back();
+        }
+
+        return true;
     }
 
     public function getRealName($key)
     {
         return $this->realNames[$key] ?? $key;
     }
+
+    public function anyError()
+    {
+        return count($this->errors) > 0;
+    }
+
 
     public function addError(string $paramName, string $message)
     {
