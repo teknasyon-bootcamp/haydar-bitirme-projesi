@@ -2,7 +2,7 @@
 
 namespace Core;
 
-class Request
+class Request extends Validation
 {
     /**
      * Get path from $_SERVER['REQUEST_URI'] global variable
