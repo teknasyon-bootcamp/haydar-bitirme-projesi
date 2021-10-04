@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Core\Session;
+
 class View 
 {
     public function render($viewAdress, ?array $data = [])
@@ -16,9 +18,12 @@ class View
         // Convert $data array to variables
         extract($data);
 
+        $errors = new Session;
+
         // Buffer the views
         ob_start();
         include_once AppRootDirectory . "/views/$viewAdress.php";
+        Session::delete('flash');
         return ob_get_clean();
     }
 }
