@@ -17,18 +17,19 @@ class Session
 
     public static function getFlash(string $key, mixed $default = null): mixed
     {
+        session_write_close();
         return $_SESSION['flash'][$key] ?? $default;
     }
 
     public static function set(string $key, mixed $value): void
     {
-        session_abort();
+        session_write_close();
         $_SESSION[$key] = $value;
     }
 
     public static function flash(string $key, mixed $value): void
     {
-        session_abort();
+        session_write_close();
         $_SESSION['flash'][$key] = $value;
     }
 
@@ -40,6 +41,6 @@ class Session
             return count($_SESSION['flash'][$key[0]]) > 0;
         }
 
-        return count($_SESSION['flash']['errors']) > 0;
+        return count($_SESSION['flash']['errors'] ?? []) > 0;
     }
 }
