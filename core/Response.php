@@ -10,7 +10,10 @@ class Response
     }
 
     public function redirect(string $url)
-    {
-        header("Location: $url");
+    {  
+        $site = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'] ."$url";
+
+        header("Location: ".$site);
+        exit;
     }
 }
