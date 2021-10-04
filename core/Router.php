@@ -7,6 +7,7 @@ class Router
     protected array $routes;
     protected Request $request;
     protected Response $response;
+    public string $backUrl;
 
     public function __construct(Request $request, Response $response)
     {
@@ -62,6 +63,7 @@ class Router
     public function resolve()
     {
         $path = $this->request->getPath();
+        $this->backUrl = $path;
         $method = $this->request->getMethod();
 
         /**

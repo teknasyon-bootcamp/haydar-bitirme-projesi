@@ -20,6 +20,8 @@ class Application
         $this->view = new View();
         $this->router = new Router($this->request, $this->response);
         self::$app = $this;
+
+        session_start();    
     }
 
     public function run()
