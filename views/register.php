@@ -11,11 +11,26 @@
             </div>
 
             <div class="card-body bg-light">
-                <form class="col-md-8 mx-auto ">
+                <?php
+
+                if ($errors->any()) {
+                    echo "<div class='alert alert-danger'>";
+                    echo "<ul>";
+                    foreach ($errors->get('flash')['errors'] as $error) {
+                        foreach ($error as $key => $errorItem) {
+                            echo "<li> $errorItem </li>";
+                        }
+                    }
+                    echo "</ul>";
+                    echo "</div>";
+                }
+
+                ?>
+                <form class="col-md-8 mx-auto" action="/register" method="POST">
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="exampleInputEmail1" class="form-label">Ad Soyad : </label>
-                            <input type="text" name="email" required class="form-control" id="exampleInputName" aria-describedby="nameHelp">
+                            <input type="text" name="name" required class="form-control" id="exampleInputName" aria-describedby="nameHelp">
                             <div id="emailHelp" class="form-text">Size nasıl hitap etmemizi arzularsınız?</div>
                         </div>
                         <div class="col-md-6">
@@ -27,11 +42,11 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="exampleInputPassword1" class="form-label">Parola : </label>
-                            <input type="password" required class="form-control" id="exampleInputPassword1">
+                            <input type="password" name="password" required class="form-control" id="exampleInputPassword1">
                         </div>
                         <div class="col-md-6">
                             <label for="exampleInputPassword2" class="form-label">Parola Tekrarı : </label>
-                            <input type="passwordConfirm"  required class="form-control" id="exampleInputPassword2">
+                            <input type="password" name="passwordConfirm" required class="form-control" id="exampleInputPassword2">
                         </div>
                     </div>
                     <div class="row mb-3 justify-content-center mx-auto">
