@@ -30,16 +30,23 @@ class Database
             exit("Veritabanına bağlanırken bir hata ile karşılaşıldı : {$ex->getMessage()}");
         }
 
-        //Define table name the will be using on queries
+        self::defineTableName();
+
+        return $pdo;
+    }
+
+    public static function defineTableName()
+    {
+        # //Define table name the will be using on queries
         if (static::$tableName) {
             // That means there is a custom tableName property variable on Model
             self::$tableName  = static::$tableName;
         } else {
             // That means that there isn't customization. It will be apply  default table naming 
-            self::$tableName  = strtolower(static::class) . 's';
+            $modelPathName = strtolower(static::class);
+            $modelName = str_replace("app\\models\\", "", $modelPathName);
+            self::$tableName  = $modelName . 's';
         }
-
-        return $pdo;
     }
 
 
