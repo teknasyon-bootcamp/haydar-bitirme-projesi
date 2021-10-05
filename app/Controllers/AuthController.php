@@ -2,9 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
 use Core\Controller;
-use Core\Request;
 
 class AuthController extends Controller
 {
