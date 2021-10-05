@@ -33,10 +33,15 @@ function setStatusCode(int $statusCode)
     Application::$app->response->statusCode($statusCode);
 }
 
-/**
- * Returns last initialised view
- */
 function back()
 {
     redirect(Application::$app->router->backUrl);
+}
+
+/**
+ * Get environment variables
+ */
+function env($key) : string
+{
+    return parse_ini_file(AppRootDirectory."/.env")[$key];
 }
