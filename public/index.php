@@ -8,11 +8,6 @@ use Core\Application;
 define('AppRootDirectory', dirname(__DIR__));
 
 $app = new Application();
-
-$app->router->get('/','welcome');
-
-$app->router->post('/', [TestController::class,'index']);
-$app->router->get('/contact','contact');
-
+include_once AppRootDirectory."/routes/web.php";
 
 $app->run();
