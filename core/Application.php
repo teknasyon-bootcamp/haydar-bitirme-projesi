@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Core\Router\Router;
 
 /**
  * This is the code that started big bang
