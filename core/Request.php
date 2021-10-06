@@ -4,6 +4,11 @@ namespace Core;
 
 class Request extends Validation
 {
+    public function __construct()
+    {  
+        $this->getParams();
+    }
+
     /**
      * Get path from $_SERVER['REQUEST_URI'] global variable
      * 
@@ -45,24 +50,11 @@ class Request extends Validation
     public function getParams()
     {
         $data = $_REQUEST;
-        return $data;
+
+        foreach ($data as $key => $value) {
+            $this->$key = $value;
+        }        
     }
-
-    /**
-     * Return request parameter if someone try access undefined property
-     * 
-     * @param string $name
-     * @return Request $property 
-     */
-    public function __get($name)
-    {
-        $bodyData = $this->getParams();
-
-        if (array_key_exists($name, $bodyData)) {
-            return $bodyData[$name];
-        }
-    }
-
 
     /**
      * Return all params from request
