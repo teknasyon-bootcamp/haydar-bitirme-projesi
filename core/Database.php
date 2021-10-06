@@ -36,7 +36,7 @@ abstract class Database
 
     public static function defineTableName()
     {
-        # //Define table name the will be using on queries
+        //Define table name the will be using on queries
         if (static::$tableName) {
             // That means there is a custom tableName property variable on Model
             self::$tableName  = static::$tableName;
@@ -103,18 +103,17 @@ abstract class Database
      */
     public static function where(string $columnName, string $value, ?string $customTableName = null)
     {
-        $tableName = "";
-        if (isset($customTableName)) {
-            $tableName = $customTableName;
-        } else {
-            $tableName = self::$tableName;
+        if ($customTableName == null) {
+            self::defineTableName();
+            $customTableName = self::$tableName;
         }
 
-        $pdoStatement = self::connect()->prepare("SELECT * FROM " . $tableName . " WHERE $columnName = :$columnName");
+        $pdoStatement = self::connect()->prepare("SELECT * FROM " . $customTableName . " WHERE $columnName = :$columnName");
         $pdoStatement->bindParam(":$columnName", $value);
 
         $pdoStatement->execute();
 
+        self::$tableName = '';
         return $pdoStatement->fetchAll(\PDO::FETCH_CLASS, static::class);
     }
 
@@ -162,6 +161,7 @@ abstract class Database
         // Serialize parts of the query
         $properties = $this->serialize();
 
+        self::defineTableName();
         $namedQuery = self::connect()->prepare("INSERT INTO " . self::$tableName . "(" . self::$tableColumns . ") VALUES(" . self::$tableValueParams . ")");
 
         // Bind params
