@@ -25,10 +25,10 @@
               <a href="#" class="nav-link"><i class="mdi mdi-magnify"></i></a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">Login</a>
+              <a href="<?= route('login') ?>" class="nav-link">Giriş</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">Sign in</a>
+              <a href="<?= route('register') ?>" class="nav-link">Kaydol</a>
             </li>
           </ul>
         </div>
@@ -50,7 +50,7 @@
                   </button>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Home</a>
+                  <a class="nav-link" href="<?= route('welcome') ?>">Anasayfa</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="pages/magazine.html">MAGAZINE</a>

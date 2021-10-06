@@ -44,7 +44,29 @@ function back()
 /**
  * Get environment variables
  */
-function env($key) : string
+function env($key): string
 {
-    return parse_ini_file(AppRootDirectory."/.env")[$key];
+    return parse_ini_file(AppRootDirectory . "/.env")[$key];
+}
+
+/**
+ * Return route path
+ * 
+ */
+function route(string $name)
+{
+    $routes = Application::$app->router->routes;
+
+    foreach ($routes['get'] as $key => $route) {
+        $routeName = $route->name ?? null;
+
+        $siteSchema = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+
+        if ($routeName === $name) {
+            return $siteSchema . $route->path;
+        } 
+    }
+    
+    throw new Exception("Route name not found", 1);
+    
 }

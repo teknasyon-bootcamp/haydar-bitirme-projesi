@@ -24,7 +24,7 @@ class Request extends Validation
         return substr($path, 0, $position);
     }
 
-    // 
+
     /**
      * Get path from $_SERVER['REQUEST_METHOD'] global variable
      * 

@@ -4,7 +4,7 @@ namespace Core;
 
 class Router
 {
-    protected array $routes;
+    public array $routes;
     protected Request $request;
     protected Response $response;
     public string $backUrl;
@@ -23,7 +23,8 @@ class Router
      */
     public function get($path, $callable)
     {
-        $this->routes['get'][$path] = $callable;
+        //$this->routes['post'][$path] = $callable;
+        return $this->routes['get'][$path] = new Route('get',$path,$callable);
     }
 
     /**
@@ -34,7 +35,8 @@ class Router
      */
     public function post($path, $callable)
     {
-        $this->routes['post'][$path] = $callable;
+        //$this->routes['post'][$path] = $callable;
+        return $this->routes['post'][$path] = new Route('post',$path,$callable);
     }
 
     /**
@@ -70,7 +72,7 @@ class Router
          * That means it is not required route and assing false 
          * if array is undefined
          */
-        $callback = $this->routes[$method][$path] ?? false;
+        $callback = $this->routes[$method][$path]->callable ?? false;
 
         if ($callback === false) {
             $this->response->statusCode(404);
