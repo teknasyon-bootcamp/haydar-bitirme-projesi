@@ -23,8 +23,7 @@ class Router
      */
     public function get($path, $callable)
     {
-        //$this->routes['post'][$path] = $callable;
-        return $this->routes['get'][$path] = new Route('get',$path,$callable);
+        return $this->routes['get'][$path] = new Route('get', $path, $callable);
     }
 
     /**
@@ -35,8 +34,7 @@ class Router
      */
     public function post($path, $callable)
     {
-        //$this->routes['post'][$path] = $callable;
-        return $this->routes['post'][$path] = new Route('post',$path,$callable);
+        return $this->routes['post'][$path] = new Route('post', $path, $callable);
     }
 
     /**
@@ -47,7 +45,7 @@ class Router
      */
     public function put($path, $callable)
     {
-        $this->routes['get'][$path] = $callable;
+        return $this->routes['put'][$path] = new Route('put', $path, $callable);
     }
 
     /**
@@ -58,7 +56,7 @@ class Router
      */
     public function delete($path, $callable)
     {
-        $this->routes['delete'][$path] = $callable;
+        return $this->routes['put'][$path] = new Route('put', $path, $callable);
     }
 
     // Resolve the request
@@ -92,5 +90,5 @@ class Router
 
         // Call callback function
         return call_user_func($callback, $this->request);
-    }   
+    }
 }
