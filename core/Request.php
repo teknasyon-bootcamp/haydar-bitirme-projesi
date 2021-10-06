@@ -52,8 +52,14 @@ class Request extends Validation
         $data = $_REQUEST;
 
         foreach ($data as $key => $value) {
-            $this->$key = $value;
+            if (is_string($value)) {
+                $this->$key = htmlspecialchars(stripslashes($value));
+            } else {
+                $this->$key = $value;
+            }
+            
         }        
+        return $data;
     }
 
     /**
@@ -63,6 +69,6 @@ class Request extends Validation
      */
     public function all()
     {
-        return $this->getParams();
+        return get_object_vars($this);
     }
 }
