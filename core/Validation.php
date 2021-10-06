@@ -42,7 +42,11 @@ abstract class Validation
                     $this->addError($paramName, "{{$paramName}} alanı {{$ruleParameter}} ile aynı olmalıdır.");
                 }
                 if (self::RULE_UNIQUE == $ruleName) {
-                    # Todo...
+                    $model =  Model::where($paramName, $this->{$paramName}, $ruleParameter);
+
+                    if ($model != null) {
+                        $this->addError($paramName,"Veritabanında zaten aynı {{$paramName}} ile başka bir kayıt mevcut.");
+                    }
                 }
             }
         }
@@ -58,6 +62,11 @@ abstract class Validation
         }
 
         return true;
+    }
+
+    public function sanitize($paramName)
+    {
+        //$this->$paramName = htmlspecialchars($this->$paramName,ENT_QUOTES, 'UTF-8');
     }
 
     public function getRealName($key)
