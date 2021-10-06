@@ -34,7 +34,7 @@ abstract class Validation
                     $this->addError($paramName, "{{$paramName}} alanı gereklidir.");
                 }
                 if (self::RULE_EMAIL === $ruleName && !filter_var($this->{$paramName}, FILTER_VALIDATE_EMAIL)) {
-                    $this->addError($paramName, "{{$paramName} }alanı geçerli bir e-posta adresi olmalıdır.");
+                    $this->addError($paramName, "{{$paramName}} alanı geçerli bir e-posta adresi olmalıdır.");
                 }
                 if (self::RULE_MIN === $ruleName && strlen($this->{$paramName}) < $ruleParameter) {
                     $this->addError($paramName, "{{$paramName}} alanı en az $ruleParameter kadar karakter içermelidir.");
