@@ -2,13 +2,12 @@
 
 namespace Core;
 
-class Database
+abstract class Database
 {
     private static $tableColumns = "";
     private static $tableValueParams = "";
     private static $tableSetParams = "";
     private static $tableName = "";
-
 
     // Connect the database and set tableName
     public static function connect()
@@ -94,11 +93,28 @@ class Database
         return $result;
     }
 
-    public static function where(string $columnName, mixed $search): mixed
+    /**
+     * Where clause
+     * 
+     * @param string $columnName 
+     * @param string $value
+     * 
+     * @return PDOStatement
+     */
+    public static function where(string $columnName, string $value, ?string $customTableName = null)
     {
-        $pdoStatement = self::connect()->prepare("SELECT * FROM " . self::$tableName . "WHERE $columnName = :$search");
-        $pdoStatement->bindParam(":$columnName", $id);
+        $tableName = "";
+        if (isset($customTableName)) {
+            $tableName = $customTableName;
+        } else {
+            $tableName = self::$tableName;
+        }
+
+        $pdoStatement = self::connect()->prepare("SELECT * FROM " . $tableName . " WHERE $columnName = :$columnName");
+        $pdoStatement->bindParam(":$columnName", $value);
+
         $pdoStatement->execute();
+
         return $pdoStatement->fetchAll(\PDO::FETCH_CLASS, static::class);
     }
 
