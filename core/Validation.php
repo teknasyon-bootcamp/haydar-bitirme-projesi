@@ -10,11 +10,9 @@ abstract class Validation
     protected const RULE_MAX = 'max';
     protected const RULE_MATCH = 'match';
     protected const RULE_UNIQUE = 'unique';
-    protected const RULE_SANITIZE = 'sanitize';
 
     public array $errors = [];
     public array $realNames = [];
-
 
     public function validate(array $rules, ?array $realNames = [])
     {
@@ -27,9 +25,6 @@ abstract class Validation
                 $rulesArray = explode(':', $rule);
                 $ruleName = $rulesArray[0];
                 $ruleParameter =  $rulesArray[1] ?? null;
-                if (self::RULE_SANITIZE === $ruleName) {
-                    $this->sanitize($paramName);
-                }
                 if (self::RULE_REQUIRED === $ruleName && !$this->{$paramName}) {
                     $this->addError($paramName, "{{$paramName}} alanı gereklidir.");
                 }
@@ -64,11 +59,6 @@ abstract class Validation
         }
 
         return true;
-    }
-
-    public function sanitize($paramName)
-    {
-        $this->$paramName = htmlspecialchars(stripslashes($this->$paramName));
     }
 
     public function getRealName($key)
