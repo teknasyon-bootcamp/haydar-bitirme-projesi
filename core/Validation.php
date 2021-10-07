@@ -41,7 +41,12 @@ abstract class Validation
                     $this->addError($paramName, "{{$paramName}} alanı {{$ruleParameter}} ile aynı olmalıdır.");
                 }
                 if (self::RULE_UNIQUE == $ruleName) {
-                    $model =  Model::where($paramName, $this->{$paramName}, $ruleParameter);
+                    $model =  Model::where(
+                        [
+                            $paramName => $this->{$paramName}
+                        ],
+                        $ruleParameter
+                    );
 
                     if ($model != null) {
                         $this->addError($paramName, "Veritabanında zaten aynı {{$paramName}} ile başka bir kayıt mevcut.");

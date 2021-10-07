@@ -101,15 +101,25 @@ abstract class Database
      * 
      * @return PDOStatement
      */
-    public static function where(string $columnName, string $value, ?string $customTableName = null)
+    public static function where(array $values, ?string $customTableName = null)
     {
         if ($customTableName == null) {
             self::defineTableName();
             $customTableName = self::$tableName;
         }
 
-        $pdoStatement = self::connect()->prepare("SELECT * FROM " . $customTableName . " WHERE $columnName = :$columnName");
-        $pdoStatement->bindParam(":$columnName", $value);
+        $whereSection = '';
+
+        foreach ($values as $columnName => $value) {
+            $whereSection .= "$columnName=:$columnName";
+        }
+
+        $pdoStatement = self::connect()->prepare("SELECT * FROM " . $customTableName . " WHERE $whereSection");
+        
+
+        foreach ($values as $columnName => $value) {
+            $pdoStatement->bindParam(":$columnName", $value);
+        }
 
         $pdoStatement->execute();
 
