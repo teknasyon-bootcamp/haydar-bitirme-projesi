@@ -2,7 +2,8 @@
 
 
 use Core\Application;
-
+use Core\Session;
+use App\Models\User;
 
 function view($viewAdress, ?array $data = [])
 {
@@ -69,4 +70,16 @@ function route(string $name)
     
     throw new Exception("Route name not found", 1);
     
+}
+
+function user()
+{
+    $user = User::find(Session::get('user_id'));
+
+    return $user;
+}
+
+function isGuest()
+{
+    return empty(Session::get('user_id'));
 }

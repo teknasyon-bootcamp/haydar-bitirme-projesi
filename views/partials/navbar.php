@@ -24,12 +24,18 @@
             <li class="nav-item">
               <a href="#" class="nav-link"><i class="mdi mdi-magnify"></i></a>
             </li>
-            <li class="nav-item">
-              <a href="<?= route('login') ?>" class="nav-link">Giriş</a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= route('register') ?>" class="nav-link">Kaydol</a>
-            </li>
+            <?php if (isGuest()) : ?>
+              <li class="nav-item">
+                <a href="<?= route('login') ?>" class="nav-link">Giriş</a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= route('register') ?>" class="nav-link">Kaydol</a>
+              </li>
+            <?php else : ?>
+              <li class="nav-item">
+                <a href="/manage" class="nav-link">Yönetim Paneli</a>
+              </li>
+            <?php endif ?>
           </ul>
         </div>
       </div>
