@@ -6,6 +6,7 @@ use App\Controllers\AuthController;
 use App\Controllers\UserController;
 
 $app->router->get('/manage/main', 'manage.main')->name('manage.main');
+$app->router->post('/logout', [AuthController::class,'logout'])->name('logout');
 $app->router->get('/','welcome')->name('welcome');
 $app->router->get('/contact','contact');
 $app->router->get('/register',[AuthController::class,'register'])->name('register');
