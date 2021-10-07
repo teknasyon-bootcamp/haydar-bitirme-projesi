@@ -16,10 +16,8 @@
                 if ($errors->any()) {
                     echo "<div class='alert alert-danger'>";
                     echo "<ul>";
-                    foreach ($errors->get('flash')['errors'] as $error) {
-                        foreach ($error as $key => $errorItem) {
-                            echo "<li> $errorItem </li>";
-                        }
+                    foreach ($errors->getErrors() as $error) {
+                        echo "<li> $error </li>";
                     }
                     echo "</ul>";
                     echo "</div>";

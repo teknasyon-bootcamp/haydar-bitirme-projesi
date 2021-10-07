@@ -62,6 +62,12 @@ class Request extends Validation
         return $data;
     }
 
+
+    public function addHandlerError($type, $message)
+    {
+        Session::flash('errors', [$message]);
+    }
+
     /**
      * Return all params from request
      * 

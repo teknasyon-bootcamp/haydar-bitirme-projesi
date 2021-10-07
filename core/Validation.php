@@ -79,7 +79,7 @@ abstract class Validation
 
     public function addError(string $paramName, string $message)
     {
-        $this->errors[$paramName][] = str_replace(
+        $this->errors[] = str_replace(
             ["{{$paramName}}", "{" . $paramName . "Confirm}"],
             [$this->getRealName($paramName), $this->getRealName($paramName . 'Confirm')],
             $message

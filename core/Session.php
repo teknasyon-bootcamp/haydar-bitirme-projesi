@@ -15,6 +15,11 @@ class Session
         return $_SESSION[$key] ?? $default;
     }
 
+    public function getErrors()
+    {
+        return $this->get('flash')['errors'] ?? null;
+    }
+
     public static function delete(string $key): void
     {
         unset($_SESSION[$key]);
