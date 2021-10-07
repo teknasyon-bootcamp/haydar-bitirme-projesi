@@ -1,6 +1,6 @@
-<?php include_once AppRootDirectory . '/views/partials/header.php' ?>
+<?= view('partials.header') ?>
 <!-- partial:partials/_navbar.html -->
-<?php include_once AppRootDirectory . '/views/partials/navbar.php' ?>
+<?= view('partials.navbar') ?>
 
 <!-- partial -->
 <div class="flash-news-banner">
@@ -193,4 +193,4 @@
 </div>
 <!-- main-panel ends -->
 <!-- container-scroller ends -->
-<?php include_once AppRootDirectory . '/views/partials/footer.php' ?>
+<?= view('partials.footer') ?>

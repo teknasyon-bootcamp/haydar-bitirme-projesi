@@ -33,7 +33,7 @@
               </li>
             <?php else : ?>
               <li class="nav-item">
-                <a href="/manage" class="nav-link">Yönetim Paneli</a>
+                <a href="<?= route('manage.main') ?>" class="nav-link">Yönetim Paneli</a>
               </li>
             <?php endif ?>
           </ul>
