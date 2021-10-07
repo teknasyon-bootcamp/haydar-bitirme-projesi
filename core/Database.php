@@ -76,13 +76,13 @@ abstract class Database
      */
     public static function find(int $id): static | null
     {
+        self::defineTableName();
         $query = "SELECT * FROM " . self::$tableName . " WHERE id=:id";
 
         //Prepare query and bind variables
         $namedQuery = self::connect()->prepare($query);
 
         $namedQuery->bindValue(':id', $id);
-
         $namedQuery->execute();
 
         // Get record as static::object 
