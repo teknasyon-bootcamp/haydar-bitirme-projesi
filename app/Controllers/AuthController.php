@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Core\Controller;
+use Core\Session;
 
 class AuthController extends Controller
 {
@@ -15,5 +16,11 @@ class AuthController extends Controller
     public function register()
     {
         return view('register');
+    }
+
+    public function logout()
+    {
+        Session::delete('user_id');
+        return redirect('/');
     }
 }
