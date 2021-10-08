@@ -1,6 +1,6 @@
-<?php include_once AppRootDirectory . '/views/partials/header.php' ?>
+<?= view('partials.header') ?>
 <!-- partial:partials/_navbar.html -->
-<?php include_once AppRootDirectory . '/views/partials/navbar.php' ?>
+<?= view('partials.navbar') ?>
 
 <div class="content-wrapper">
     <div class="container">
@@ -64,4 +64,4 @@
 
 <!-- main-panel ends -->
 <!-- container-scroller ends -->
-<?php include_once AppRootDirectory . '/views/partials/footer.php' ?>
+<?= view('partials.footer') ?>
