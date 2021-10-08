@@ -33,7 +33,11 @@ class UserController extends Controller
 
         $user->password = password_hash($request->password, PASSWORD_BCRYPT);
 
-        $user->create();
+        $newUserId = $user->create();
+
+        
+        Session::set('user_id',$newUserId);
+        redirect('/');
     }
 
     public function login(Request $request)
