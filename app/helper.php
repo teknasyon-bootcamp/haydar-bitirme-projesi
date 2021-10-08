@@ -24,9 +24,9 @@ function dd(mixed $data)
     die;
 }
 
-function redirect($url)
+function redirect($url, ?bool $noRoot = false)
 {
-    return Application::$app->response->redirect($url);
+    return Application::$app->response->redirect($url, $noRoot);
 }
 
 function setStatusCode(int $statusCode)
@@ -61,17 +61,16 @@ function route(string $name)
     foreach ($routesTypes as $key => $routeType) {
         foreach ($routeType as $key => $route) {
             $routeName = $route->name ?? null;
-    
+
             $siteSchema = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
-    
+
             if ($routeName === $name) {
                 return $siteSchema . $route->path;
-            } 
+            }
         }
     }
-    
+
     throw new Exception("Route name not found", 1);
-    
 }
 
 function user()
