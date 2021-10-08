@@ -25,8 +25,16 @@ class Route
         return $this;
     }
 
-    public function middleware($middleware, mixed $param = null)
+    public function middleware($middlewareClass, mixed $constructParam = null)
     {
-        $this->middleware [] = new Middleware($param);
+        if ($constructParam != null) {
+            $this->middleware [] = new $middlewareClass($constructParam);
+            return $this;
+        }
+
+        $this->middlewares [] = new $middlewareClass();
+
+        return $this;
+        
     }
 }

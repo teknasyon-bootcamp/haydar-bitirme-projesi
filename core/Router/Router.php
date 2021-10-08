@@ -2,13 +2,14 @@
 
 namespace Core\Router;
 
+use Core\Middleware\Middleware;
 use Core\Request;
 use Core\Response;
 
 class Router
 {
     public array $routes;
-    protected Request $request;
+    protected ?Request $request;
     protected Response $response;
     public string $backUrl;
 
@@ -68,6 +69,16 @@ class Router
         $path = $this->request->getPath();
         $this->backUrl = $path;
         $method = $this->request->getMethod();
+
+        // Call middlewares
+
+        $middlewares = $this->routes[$method][$path]->middlewares ?? [];
+
+        foreach ($middlewares as $key => $middleware) {
+            $this->request = Middleware::call($middleware, function ($param) {
+                return $param;
+            }, $this->request);
+        }
 
         /**
          * That means it is not required route and assing false 
