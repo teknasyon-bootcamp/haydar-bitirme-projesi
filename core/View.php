@@ -19,6 +19,7 @@ class View
         extract($data);
 
         $errors = new Session;
+        $success = Session::getFlash('success', false); 
 
         // Buffer the views
         ob_start();
