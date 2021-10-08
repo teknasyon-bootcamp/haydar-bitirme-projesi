@@ -6,7 +6,7 @@ use Core\Middleware\MiddlewareInterface;
 
 class Auth implements MiddlewareInterface
 {
-    public function handle($next,$request)
+    public function handle($next, $request)
     {
         if (isGuest()) {
             http_response_code(403);
