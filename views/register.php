@@ -25,6 +25,7 @@
 
                 ?>
                 <form class="col-md-8 mx-auto" action="/register" method="POST">
+                    <?= csrfToken() ?>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="exampleInputEmail1" class="form-label">Ad Soyad : </label>
