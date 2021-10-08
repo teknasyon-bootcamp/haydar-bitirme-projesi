@@ -25,7 +25,7 @@ abstract class Validation
                 $rulesArray = explode(':', $rule);
                 $ruleName = $rulesArray[0];
                 $ruleParameter =  $rulesArray[1] ?? null;
-                if (self::RULE_REQUIRED === $ruleName && !$this->{$paramName}) {
+                if (self::RULE_REQUIRED === $ruleName && !isset($this->{$paramName})) {
                     $this->addError($paramName, "{{$paramName}} alanı gereklidir.");
                 }
                 if (self::RULE_EMAIL === $ruleName && !filter_var($this->{$paramName}, FILTER_VALIDATE_EMAIL)) {
