@@ -1,6 +1,6 @@
-<?= view('partials.header') ?>
+<?= includeView('partials.header') ?>
 <!-- partial:partials/_navbar.html -->
-<?= view('partials.navbar') ?>
+<?= includeView('partials.navbar') ?>
 
 <div class="content-wrapper">
     <div class="container">
@@ -65,4 +65,4 @@
 
 <!-- main-panel ends -->
 <!-- container-scroller ends -->
-<?= view('partials.footer') ?>
+<?= includeView('partials.footer') ?>

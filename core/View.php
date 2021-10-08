@@ -4,9 +4,9 @@ namespace Core;
 
 use Core\Session\Session;
 
-class View 
+class View
 {
-    public function render($viewAdress, ?array $data = [])
+    public function include($viewAdress, ?array $data = [])
     {
         /**
          * Serialize path
@@ -19,11 +19,22 @@ class View
         extract($data);
 
         $errors = new Session;
-        $success = Session::getFlash('success', false); 
+        $success = Session::getFlash('success', false);
 
         // Buffer the views
         ob_start();
         include_once AppRootDirectory . "/views/$viewAdress.php";
-        return ob_get_clean();
+        $view = ob_get_clean();
+
+        return $view;
+    }
+
+    public function render($viewAdress, ?array $data = [])
+    {
+        $view = $this->include($viewAdress, $data);
+
+        Session::delete('flash');;
+
+        return $view;
     }
 }

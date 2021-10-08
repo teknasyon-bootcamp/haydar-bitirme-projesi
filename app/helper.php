@@ -10,6 +10,12 @@ function view($viewAdress, ?array $data = [])
     return Application::$app->view->render($viewAdress, $data);
 }
 
+function includeView($viewAdress, ?array $data = [])
+{
+    return Application::$app->view->include($viewAdress, $data);
+}
+
+
 function publicPath(?string $path = null)
 {
     return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . "/$path";

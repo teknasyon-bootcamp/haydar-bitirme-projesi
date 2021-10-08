@@ -1,6 +1,6 @@
-<?= view('partials.header') ?>
+<?= includeView('partials.header') ?>
 <!-- partial:partials/_navbar.html -->
-<?= view('partials.navbar') ?>
+<?= includeView('partials.navbar') ?>
 
 <!-- partial -->
 <div class="flash-news-banner">
@@ -193,4 +193,4 @@
 </div>
 <!-- main-panel ends -->
 <!-- container-scroller ends -->
-<?= view('partials.footer') ?>
+<?= includeView('partials.footer') ?>

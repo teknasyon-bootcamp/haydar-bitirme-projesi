@@ -1,6 +1,6 @@
-<?= view('manage.partials.header') ?>
-<?= view('manage.partials.navbar') ?>
-<?= view('manage.partials.sidebar') ?>
+<?= includeView('manage.partials.header') ?>
+<?= includeView('manage.partials.navbar') ?>
+<?= includeView('manage.partials.sidebar') ?>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -33,4 +33,4 @@
 </div>
 <!-- /.content-wrapper -->
 
-<?= view('manage.partials.footer') ?>
+<?= includeView('manage.partials.footer') ?>
