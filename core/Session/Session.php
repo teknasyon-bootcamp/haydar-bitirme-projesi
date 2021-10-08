@@ -17,7 +17,6 @@ class Session
 
     public function getErrors()
     {
-        dd(Session::all());
         return $this->get('flash')['errors'] ?? [];
     }
 
