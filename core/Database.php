@@ -57,7 +57,7 @@ abstract class Database
      * 
      * @return static::class
      * */
-    public static function All()
+    public static function all()
     {
         $query = self::connect()->query("SELECT * FROM " . self::$tableName . "");
 
