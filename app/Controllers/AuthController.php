@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Core\Controller;
-use Core\Session;
+use Core\Session\Session;
 
 class AuthController extends Controller
 {

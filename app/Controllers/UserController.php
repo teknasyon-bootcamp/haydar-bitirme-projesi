@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\User;
 use Core\Controller;
 use Core\Request;
-use Core\Session;
+use Core\Session\Session;
 
 class UserController extends Controller
 {

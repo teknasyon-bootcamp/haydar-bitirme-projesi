@@ -2,7 +2,7 @@
 
 
 use Core\Application;
-use Core\Session;
+use Core\Session\Session;
 use App\Models\User;
 
 function view($viewAdress, ?array $data = [])

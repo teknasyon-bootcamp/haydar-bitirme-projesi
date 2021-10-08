@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Core\Session;
+use Core\Session\Session;
 
 class View 
 {
@@ -24,7 +24,6 @@ class View
         // Buffer the views
         ob_start();
         include_once AppRootDirectory . "/views/$viewAdress.php";
-        Session::delete('flash');
         return ob_get_clean();
     }
 }
