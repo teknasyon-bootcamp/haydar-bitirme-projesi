@@ -4,8 +4,9 @@ namespace Routes;
 
 use App\Controllers\AuthController;
 use App\Controllers\UserController;
+use App\Middlewares\Auth;
 
-$app->router->get('/manage/main', 'manage.main')->name('manage.main');
+$app->router->get('/manage/main', 'manage.main')->name('manage.main')->middleware(Auth::class);
 $app->router->post('/logout', [AuthController::class,'logout'])->name('logout');
 $app->router->get('/','welcome')->name('welcome');
 $app->router->get('/contact','contact');
