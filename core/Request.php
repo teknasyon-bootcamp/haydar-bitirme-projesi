@@ -68,6 +68,12 @@ class Request extends Validation
         Session::flash('errors', [$message]);
     }
 
+
+    public function __get($paramName)
+    {
+        return null;
+    }
+
     /**
      * Return all params from request
      * 
