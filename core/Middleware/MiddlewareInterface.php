@@ -3,6 +3,7 @@
 namespace Core\Middleware;
 
 use Closure;
+use Core\Request;
 
 interface MiddlewareInterface
 {
@@ -12,5 +13,5 @@ interface MiddlewareInterface
      * 
      * @return mixed
      */
-    public function handle(Closure $next, $request);
+    public function handle(Closure $next, Request $request);
 }

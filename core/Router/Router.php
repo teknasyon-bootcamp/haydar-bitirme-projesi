@@ -2,6 +2,7 @@
 
 namespace Core\Router;
 
+use App\Middlewares\CSRFTokenChecker;
 use Core\Middleware\Middleware;
 use Core\Request;
 use Core\Response;
@@ -70,7 +71,15 @@ class Router
         $this->backUrl = $path;
         $method = $this->request->getMethod();
 
-        // Call middlewares
+
+        // Check CSRF token except get request
+        if ($method != 'get') {
+            Middleware::call(CSRFTokenChecker::class, function ($param) {
+                return $param;
+            }, $this->request);            
+        }
+
+        // Call custom middlewares
 
         $middlewares = $this->routes[$method][$path]->middlewares ?? [];
 

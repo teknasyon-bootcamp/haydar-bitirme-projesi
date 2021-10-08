@@ -73,6 +73,11 @@ function route(string $name)
     throw new Exception("Route name not found", 1);
 }
 
+function csrfToken()
+{
+    return "<input type='hidden' name='_token' value='" . session_id() . "'>";
+}
+
 function user()
 {
     $user = User::find(Session::get('user_id'));
