@@ -172,7 +172,9 @@ abstract class Database
         $properties = $this->serialize();
 
         self::defineTableName();
-        $namedQuery = self::connect()->prepare("INSERT INTO " . self::$tableName . "(" . self::$tableColumns . ") VALUES(" . self::$tableValueParams . ")");
+
+        $connection = self::connect();
+        $namedQuery = $connection->prepare("INSERT INTO " . self::$tableName . "(" . self::$tableColumns . ") VALUES(" . self::$tableValueParams . ")");
 
         // Bind params
         foreach ($properties as $param => $value) {
@@ -180,6 +182,8 @@ abstract class Database
         }
 
         $namedQuery->execute();
+
+        return $connection->lastInsertId();
     }
 
     public function update()
