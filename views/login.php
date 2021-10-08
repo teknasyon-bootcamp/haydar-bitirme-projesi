@@ -13,7 +13,7 @@
             <div class="card-body bg-light">
 
                 <?php
-                
+
                 if ($errors->any()) {
                     echo "<div class='alert alert-danger'>";
                     echo "<ul>";
@@ -26,6 +26,7 @@
 
                 ?>
                 <form class="col-md-4 mx-auto" action="<?php route('login') ?>" method="POST">
+                    <?= csrfToken() ?>
                     <div class="row mb-3">
                         <label for="exampleInputEmail1" class="form-label">E-posta Adresi : </label>
                         <input type="email" name="email" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
