@@ -76,6 +76,7 @@ abstract class Database
      */
     public static function find(int $id): static | null
     {
+        self::$tableName = '';
         self::defineTableName();
         $query = "SELECT * FROM " . self::$tableName . " WHERE id=:id";
 
