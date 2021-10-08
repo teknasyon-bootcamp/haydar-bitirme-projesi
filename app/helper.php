@@ -56,16 +56,18 @@ function env($key): string
  */
 function route(string $name)
 {
-    $routes = Application::$app->router->routes;
+    $routesTypes = Application::$app->router->routes;
 
-    foreach ($routes['get'] as $key => $route) {
-        $routeName = $route->name ?? null;
-
-        $siteSchema = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
-
-        if ($routeName === $name) {
-            return $siteSchema . $route->path;
-        } 
+    foreach ($routesTypes as $key => $routeType) {
+        foreach ($routeType as $key => $route) {
+            $routeName = $route->name ?? null;
+    
+            $siteSchema = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+    
+            if ($routeName === $name) {
+                return $siteSchema . $route->path;
+            } 
+        }
     }
     
     throw new Exception("Route name not found", 1);
