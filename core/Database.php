@@ -36,6 +36,7 @@ abstract class Database
 
     public static function defineTableName()
     {
+        self::$tableName = '';
         //Define table name the will be using on queries
         if (static::$tableName) {
             // That means there is a custom tableName property variable on Model
@@ -116,7 +117,7 @@ abstract class Database
         }
 
         $pdoStatement = self::connect()->prepare("SELECT * FROM " . $customTableName . " WHERE $whereSection");
-        
+
 
         foreach ($values as $columnName => $value) {
             $pdoStatement->bindParam(":$columnName", $value);
