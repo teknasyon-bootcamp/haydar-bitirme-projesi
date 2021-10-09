@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+use Core\Session\Session;
 
 class Request extends Validation
 {
