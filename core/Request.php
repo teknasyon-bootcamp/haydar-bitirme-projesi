@@ -54,6 +54,7 @@ class Request extends Validation
     public function getParams()
     {
         $data = $_REQUEST;
+        $files = $_FILES;
 
         foreach ($data as $key => $value) {
             if (is_string($value)) {
@@ -62,7 +63,12 @@ class Request extends Validation
                 $this->$key = $value;
             }
             
-        }        
+        }  
+
+        foreach ($files as $key => $file) {
+            $this->$key = $file;
+        }
+
         return $data;
     }
 
