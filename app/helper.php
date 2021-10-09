@@ -45,7 +45,7 @@ function setStatusCode(int $statusCode)
  */
 function back()
 {
-    redirect(Application::$app->router->backUrl);
+    redirect($_SERVER['HTTP_REFERER'], true);
 }
 
 /**
@@ -60,7 +60,7 @@ function env($key): string
  * Return route path
  * 
  */
-function route(string $name)
+function route(string $name, ?array $params = [])
 {
     $routesTypes = Application::$app->router->routes;
 
@@ -71,12 +71,18 @@ function route(string $name)
             $siteSchema = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 
             if ($routeName === $name) {
-                return $siteSchema . $route->path;
+                $paramString = '';
+
+                foreach ($params as $key => $param) {
+                    $paramString .= "$key=$param&";
+                }
+
+                return $siteSchema . $route->path . "?" . $paramString;
             }
         }
     }
 
-    throw new Exception("Route name not found", 1);
+    throw new Exception("Route name not found : $name", 1);
 }
 
 function csrfToken()
@@ -94,4 +100,9 @@ function user()
 function isGuest()
 {
     return empty(Session::get('user_id'));
+}
+
+function method($method)
+{
+    return "<input type='hidden' name='method' value='$method'>";
 }
