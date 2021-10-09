@@ -39,7 +39,10 @@ class Request extends Validation
     public function getMethod()
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
-
+        
+        if (isset($this->method)) {
+            $method = $this->method;
+        }
         return $method;
     }
 
