@@ -12,6 +12,7 @@ $app->router->post('/logout', [AuthController::class, 'logout'])->name('logout')
 $app->router->get('/', 'welcome')->name('welcome');
 $app->router->get('/contact', 'contact');
 
+$app->router->post('/logout', [AuthController::class, 'logout'])->name('logout');
 $app->router->get('/register', [AuthController::class, 'register'])->name('register')->middleware(RedirectIfAuthenticated::class);
 $app->router->post('/register', [UserController::class, 'store']);
 $app->router->get('/login', [AuthController::class, 'login'])->name('login')->middleware(RedirectIfAuthenticated::class);;
