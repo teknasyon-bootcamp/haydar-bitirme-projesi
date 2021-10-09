@@ -61,7 +61,7 @@ class Router
      */
     public function delete($path, $callable)
     {
-        return $this->routes['put'][$path] = new Route('put', $path, $callable);
+        return $this->routes['delete'][$path] = new Route('delete', $path, $callable);
     }
 
     // Resolve the request
@@ -70,7 +70,6 @@ class Router
         $path = $this->request->getPath();
         $this->backUrl = $path;
         $method = $this->request->getMethod();
-
 
         // Check CSRF token except get request
         if ($method != 'get') {
@@ -93,6 +92,7 @@ class Router
          * That means it is not required route and assing false 
          * if array is undefined
          */
+
         $callback = $this->routes[$method][$path]->callable ?? false;
 
         if ($callback === false) {
