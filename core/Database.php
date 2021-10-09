@@ -101,7 +101,7 @@ abstract class Database
      * @param string $columnName 
      * @param string $value
      * 
-     * @return PDOStatement
+     * @return array static::object
      */
     public static function where(array $values, ?string $customTableName = null)
     {
@@ -111,13 +111,14 @@ abstract class Database
         }
 
         $whereSection = '';
+        $isFirstParam = true;
 
         foreach ($values as $columnName => $value) {
-            $whereSection .= "$columnName=:$columnName";
+            $whereSection .= $isFirstParam ? "$columnName=:$columnName" : " and $columnName=:$columnName";
+            $isFirstParam = false;
         }
 
         $pdoStatement = self::connect()->prepare("SELECT * FROM " . $customTableName . " WHERE $whereSection");
-
 
         foreach ($values as $columnName => $value) {
             $pdoStatement->bindParam(":$columnName", $value);
