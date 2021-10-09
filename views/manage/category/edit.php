@@ -100,9 +100,13 @@
             </div>
 
 
-            <div class="row">
+
+        </div>
+
+
+        <div class="row">
                 <div class="card col-12">
-                    <table class="table table-bordered col-12">
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Kullanıcı Adı</th>
@@ -130,10 +134,6 @@
                     </table>
                 </div>
             </div>
-
-
-        </div>
-
 
 
         <!-- /.container-fluid -->
