@@ -1,6 +1,6 @@
-<?= view('manage.partials.header') ?>
-<?= view('manage.partials.navbar') ?>
-<?= view('manage.partials.sidebar') ?>
+<?= includeView('manage.partials.header') ?>
+<?= includeView('manage.partials.navbar') ?>
+<?= includeView('manage.partials.sidebar') ?>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -28,7 +28,29 @@
     <div class="content">
         <div class="container-fluid">
             <div class="card">
-                <form action="">
+                <?php
+
+                if ($errors->any()) {
+                    echo "<div class='alert alert-danger'>";
+                    echo "<ul>";
+                    foreach ($errors->getErrors() as $error) {
+                        echo "<li> $error </li>";
+                    }
+                    echo "</ul>";
+                    echo "</div>";
+                }
+
+                if ($success) {
+                    echo "<div class='alert alert-success'>";
+                    echo "<ul>";
+                    echo "<li> $success </li>";
+                    echo "</ul>";
+                    echo "</div>";
+                }
+
+                ?>
+                <form action="<?= route('manage.category.store') ?>" method="post">
+                    <?= csrfToken() ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-md-6">
@@ -37,15 +59,12 @@
                             </div>
 
                             <div class="form-group col-md-1 mt-2">
-                            <label for="summit"> </label>
+                                <label for="summit"> </label>
                                 <button type="submit" class="btn btn-primary" id="summit">Kaydet</button>
                             </div>
                         </div>
 
                     </div>
-                    <!-- /.card-body -->
-
-
                 </form>
 
             </div>
@@ -57,4 +76,4 @@
 </div>
 <!-- /.content-wrapper -->
 
-<?= view('manage.partials.footer') ?>
+<?= includeView('manage.partials.footer') ?>

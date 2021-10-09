@@ -1,6 +1,6 @@
-<?= view('manage.partials.header') ?>
-<?= view('manage.partials.navbar') ?>
-<?= view('manage.partials.sidebar') ?>
+<?= includeView('manage.partials.header') ?>
+<?= includeView('manage.partials.navbar') ?>
+<?= includeView('manage.partials.sidebar') ?>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Yönetim Paneli</a></li>
-                        <li class="breadcrumb-item active">Kategori İşlemleri</li>
+                        <li class="breadcrumb-item">Kategori İşlemleri</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -26,6 +26,58 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <div class="card">
+                <?php
+
+                if ($errors->any()) {
+                    echo "<div class='alert alert-danger'>";
+                    echo "<ul>";
+                    foreach ($errors->getErrors() as $error) {
+                        echo "<li> $error </li>";
+                    }
+                    echo "</ul>";
+                    echo "</div>";
+                }
+
+                if ($success) {
+                    echo "<div class='alert alert-success'>";
+                    echo "<ul>";
+                    echo "<li> $success </li>";
+                    echo "</ul>";
+                    echo "</div>";
+                }
+
+                ?>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Kategori Adı</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (isset($categories)) : ?>
+                            <?php foreach ($categories as $category) : ?>
+                                <tr>
+                                    <td><?= $category->name ?></td>
+                                    <td>
+                                        <a href="<?= route('manage.category.edit', ['id' => $category->id]) ?>" id="delete-form-<?= $category->id ?>" class="btn btn-primary">Düzenle</a>
+                                        <a onclick="document.getElementById('delete-form-<?= $category->id ?>').submit();" class="btn btn-danger">Sil
+                                        </a>
+
+                                        <form action="<?= route('manage.category.destroy', ['id' => $category->id]) ?>" id="delete-form-<?= $category->id ?>" style="display:none;" method="post">
+                                            <?= csrfToken() ?>
+                                            <?= method('delete') ?>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif ?>
+                    </tbody>
+                </table>
+
+            </div>
+
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -33,4 +85,4 @@
 </div>
 <!-- /.content-wrapper -->
 
-<?= view('manage.partials.footer') ?>
+<?= includeView('manage.partials.footer') ?>
