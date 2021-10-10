@@ -22,12 +22,22 @@ class Application
         $this->router = new Router($this->request, $this->response);
         self::$app = $this;
 
-        session_start();    
+        session_start();
     }
 
     public function run()
     {
-        // Review incoming request
-        echo $this->router->resolve();
+        try {
+            // Review incoming request
+            echo $this->router->resolve();
+        } catch (\Exception $th) {
+
+            $code = $th->getCode();
+            $message = $th->getMessage();
+
+            http_response_code($code);
+            echo view('errors.commonError', ['code' => $code, 'message' => $message]);
+            exit;
+        }
     }
 }
