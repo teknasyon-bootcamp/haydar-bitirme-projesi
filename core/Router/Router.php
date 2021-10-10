@@ -2,6 +2,7 @@
 
 namespace Core\Router;
 
+use App\Exceptions\NoFoundError;
 use App\Middlewares\CSRFTokenChecker;
 use Core\Middleware\Middleware;
 use Core\Request;
@@ -97,7 +98,7 @@ class Router
 
         if ($callback === false) {
             $this->response->statusCode(404);
-            echo "Opps seems like someone lost their way.";
+            throw new NoFoundError();            
             exit;
         } elseif (is_string($callback)) {
             // Return view if callback is string
