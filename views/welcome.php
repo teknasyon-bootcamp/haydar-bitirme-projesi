@@ -6,7 +6,7 @@
 <div class="content-wrapper">
   <div class="container">
     <div class="row" data-aos="fade-up">
-      
+
       <?php if (isset($news[0])) : ?>
         <div class="col-xl-8 stretch-card grid-margin">
           <div class="position-relative">
@@ -15,8 +15,8 @@
               <div class="badge badge-danger fs-12 font-weight-bold mb-3">
                 <?= $news[0]->category()->name ?>
               </div>
-              <h1 class="mb-0"> <?= $news[0]->title ?></h1>
-              <p class="mb-2"> açıklama
+              <h1 class="mb-0"> <a class="text-light" href="<?= route('news', ['id' => $news[0]->id]) ?>"><?= $news[0]->title ?></h1></a>
+              <p class="mb-2">
                 <?= $news[0]->getSummary() ?>
               </p>
             </div>
@@ -33,7 +33,7 @@
               <?php if (isset($news[1])) : ?>
                 <div class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
                   <div class="pr-3">
-                    <h5><?= $news[1]->title ?></h5>
+                    <h5 class="mb-0"> <a class="text-light" href="<?= route('news', ['id' => $news[1]->id]) ?>"><?= $news[1]->title ?></a> </h5>
                   </div>
                   <div class="rotate-img">
                     <img src="<?= publicPath("uploads/" . $news[1]->image . "") ?>" alt="thumb" class="img-fluid img-lg" />
@@ -42,9 +42,9 @@
               <?php endif  ?>
 
               <?php if (isset($news[2])) : ?>
-                <div class="d-flex border-bottom-blue pb-4 pt-4 align-items-center justify-content-between">
+                <div class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
                   <div class="pr-3">
-                    <h5><?= $news[2]->title ?></h5>
+                    <h5 class="mb-0"> <a class="text-light" href="<?= route('news', ['id' => $news[2]->id]) ?>"><?= $news[2]->title ?> </a> </h5>
                   </div>
                   <div class="rotate-img">
                     <img src="<?= publicPath("uploads/" . $news[2]->image . "") ?>" alt="thumb" class="img-fluid img-lg" />
@@ -53,9 +53,9 @@
               <?php endif  ?>
 
               <?php if (isset($news[3])) : ?>
-                <div class="d-flex pt-4 align-items-center justify-content-between">
+                <div class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
                   <div class="pr-3">
-                    <h5><?= $news[2]->title ?></h5>
+                    <h5 class="mb-0"> <a class="text-light" href="<?= route('news', ['id' => $news[3]->id]) ?>"><?= $news[3]->title ?></h5>
                   </div>
                   <div class="rotate-img">
                     <img src="<?= publicPath("uploads/" . $news[3]->image . "") ?>" alt="thumb" class="img-fluid img-lg" />
