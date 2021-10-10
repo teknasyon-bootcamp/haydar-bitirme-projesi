@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 use Core\Session\Session;
 
 abstract class Validation
@@ -11,6 +12,8 @@ abstract class Validation
     protected const RULE_MAX = 'max';
     protected const RULE_MATCH = 'match';
     protected const RULE_UNIQUE = 'unique';
+    protected const RULE_IMAGE = 'image';
+    protected const RULE_MAX_SIZE = 'max_size';
 
     public array $errors = [];
     public array $realNames = [];
@@ -52,6 +55,19 @@ abstract class Validation
                     if ($model != null) {
                         $this->addError($paramName, "Veritabanında zaten aynı {{$paramName}} ile başka bir kayıt mevcut.");
                     }
+                }
+
+                $allowedTypes = [
+                    'image/png' => 'png',
+                    'image/jpeg' => ['jpg', 'jpe', 'jpeg'],
+                    'image/gif' => 'gif'
+                ];
+
+                if (self::RULE_IMAGE === $ruleName && !$this->{$paramName}->isValidMimeType($allowedTypes)) {
+                    $this->addError($paramName, "{{$paramName}} png, jpg veya gif tipinde geçerli bir görsel olmalıdır.");
+                }
+                if (self::RULE_MAX_SIZE === $ruleName && $this->{$paramName}->size > $ruleParameter) {
+                    $this->addError($paramName, "{{$paramName}} en fazla  $ruleParameter KB olabilir.");
                 }
             }
         }
