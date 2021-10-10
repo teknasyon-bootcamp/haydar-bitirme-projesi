@@ -6,6 +6,8 @@ use Core\Session\Session;
 
 class View
 {
+    public array $globaldata;
+
     public function include($viewAdress, ?array $data = [])
     {
         /**
@@ -14,6 +16,8 @@ class View
          * Ex : dashboard.pages.home => dashboard/pages/home
          */
         $viewAdress = str_replace('.', '/', $viewAdress);
+
+        extract($this->globalData);
 
         // Convert $data array to variables
         extract($data);
@@ -31,6 +35,8 @@ class View
 
     public function render($viewAdress, ?array $data = [])
     {
+        $this->globalData = $data;
+
         $view = $this->include($viewAdress, $data);
 
         Session::delete('flash');;
