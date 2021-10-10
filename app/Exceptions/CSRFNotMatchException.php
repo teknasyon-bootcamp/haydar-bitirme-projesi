@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class CSRFNotMatch extends Exception
+class CSRFNotMatchException extends Exception
 {
     public function __construct()
     {

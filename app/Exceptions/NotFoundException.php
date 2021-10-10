@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class NoFoundError extends Exception
+class NotFoundException extends Exception
 {
     public function __construct()
     {

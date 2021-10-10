@@ -2,7 +2,7 @@
 
 namespace Core\Router;
 
-use App\Exceptions\NoFoundError;
+use App\Exceptions\NotFoundException;
 use App\Middlewares\CSRFTokenChecker;
 use Core\Middleware\Middleware;
 use Core\Request;
@@ -76,7 +76,7 @@ class Router
         if ($method != 'get') {
             Middleware::call(CSRFTokenChecker::class, function ($param) {
                 return $param;
-            }, $this->request);            
+            }, $this->request);
         }
 
         // Call custom middlewares
@@ -98,8 +98,7 @@ class Router
 
         if ($callback === false) {
             $this->response->statusCode(404);
-            throw new NoFoundError();            
-            exit;
+            throw new NotFoundException();
         } elseif (is_string($callback)) {
             // Return view if callback is string
             return view($callback);
