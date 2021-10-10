@@ -66,7 +66,7 @@ class Request extends Validation
         }  
 
         foreach ($files as $key => $file) {
-            $this->$key = $file;
+            $this->$key = new File($file);
         }
 
         return $data;
