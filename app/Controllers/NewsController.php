@@ -102,13 +102,16 @@ class NewsController extends Controller
             ]
         );
 
+        $news = News::find($request->id);
+
+        if ($news == null ) {
+            throw new NotFoundException();
+        }
 
         $newCoverImageName = $request->cover_image->getRandomizeName();
 
         $request->cover_image->move("uploads/" . $newCoverImageName);
-
-        $news = News::find($request->id);
-
+        
         $news->title = $request->title;
         $news->content = $request->content;
         $news->category_id = $request->category_id;
@@ -134,6 +137,11 @@ class NewsController extends Controller
         );
 
         $news = News::find($request->id);
+
+        if ($news == null ) {
+            throw new NotFoundException();
+        }
+
 
         $news->destroyAsset();
         $news->delete();
