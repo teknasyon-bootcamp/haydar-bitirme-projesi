@@ -89,11 +89,56 @@ class UserController extends Controller
         if ($user->delete_request) {
             $message = "Hesap silme isteği iptal edildi.";
         }
-        $user->delete_request =  (int)!$user->delete_request ;
+        $user->delete_request =  (int)!$user->delete_request;
 
         $user->update();
 
         Session::flash('success',  $message);
+
+        back();
+    }
+
+    public function requestView()
+    {
+        $deleteRequests = User::where(['delete_request' => 1]);
+
+        $deleteRequestsByRole = [];
+
+        // I didn't want every time iterate user function in foreach 
+        $myRoleLevel = user()->role_level;
+
+        foreach ($deleteRequests as $key => $deleteRequest) {
+            if ($deleteRequest->role_level < $myRoleLevel) {
+                $deleteRequestsByRole [] = $deleteRequest;
+            }
+        }
+
+        return view('manage.deleteRequests', ['deleteRequests' => $deleteRequestsByRole]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->validate(
+            [
+                'id' => 'required',
+            ],
+            [
+                'id' => 'Hesap No',
+            ]
+        );
+
+        $user = User::find($request->id);
+
+        if ($user == null) {
+            throw new NotFoundException();
+        } elseif ($user->role_level >= user()->role_level) {
+            $request->addHandlerError('roleNotAllowed', "Kendi yetki seviyenizin üstündeki kullanıcıları silemezsiniz.");
+            back();
+        }
+
+        $user->delete();
+
+        Session::flash('success',  'Kullanıcı başarıyla silindi.');
 
         back();
     }
