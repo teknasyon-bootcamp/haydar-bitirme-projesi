@@ -21,7 +21,12 @@ class NewsController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
+        $currentUser = user();
+        if ($currentUser->role_level >= 3) {
+            $categories = Category::all();
+        } else {
+            $categories = $currentUser->getEditorCategories();
+        }
 
         return view('manage.news.create', ['categories' => $categories]);
     }

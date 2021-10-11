@@ -76,10 +76,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="Kategori">Kategori : </label>
-                                <select name="category_id" class="form-control" id="Kategori">
+                                <select name="category_id" <?= user()->role_level < 3 ? 'disabled' : '' ?> class="form-control" id="Kategori">
                                     <?php if (isset($categories)) : ?>
                                         <?php foreach ($categories as $category) : ?>
-                                            <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                                            <option <?= user()->role_level < 3 ? 'selected' : '' ?> value="<?= $category->id ?>"><?= $category->name ?></option>
                                         <?php endforeach ?>
                                     <?php endif ?>
                                 </select>
