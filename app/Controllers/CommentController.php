@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\ForbiddenException;
 use App\Exceptions\NotFoundException;
 use App\Models\Comment;
 use Core\Controller;
@@ -70,7 +71,7 @@ class CommentController extends Controller
         $user = user();
 
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
-            throw new NotFoundException();
+            throw new ForbiddenException();
         }
 
         return view('manage.comment.edit', ['comment' => $comment]);
@@ -97,7 +98,7 @@ class CommentController extends Controller
 
         $user = user();
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
-            throw new NotFoundException();
+            throw new ForbiddenException();
         }
 
         $comment->message = $request->message;
@@ -128,7 +129,7 @@ class CommentController extends Controller
 
         $user = user();
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
-            throw new NotFoundException();
+            throw new ForbiddenException();
         }
 
         $comment->delete();
