@@ -15,8 +15,7 @@ class GuestController extends Controller
 
     public function __construct()
     {
-        $categories = Category::all();
-        $this->categories = $categories;
+        $this->categories = Category::all();
     }
     public function welcome()
     {
