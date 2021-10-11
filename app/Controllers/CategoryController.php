@@ -42,6 +42,13 @@ class CategoryController extends Controller
         if (array_key_exists(0, $relation)) {
             $request->addHandlerError('userNotExist', "Editör zaten kategoriye eklenmiş.");
             back();
+        } else {
+            $user = User::find($request->user_id);
+
+            if ($user == null || $user->role_level >= 3) {
+                $request->addHandlerError('roleNotAllowed', "Kendi yetki seviyenizi aşan kullanıcılarda değişiklik yapamazsınız.");
+                back();
+            }
         }
 
         $relation = new UsersCategories;
