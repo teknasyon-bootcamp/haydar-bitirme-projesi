@@ -34,8 +34,11 @@ class Application
 
             $code = $th->getCode();
             $message = $th->getMessage();
-
-            http_response_code($code);
+            
+            if (is_int($code)) {
+                http_response_code($code);
+            }
+            
             echo view('errors.commonError', ['code' => $code, 'message' => $message]);
             exit;
         }
