@@ -12,7 +12,14 @@ class CommentController extends Controller
 {
     public function index()
     {
-        $comments = Comment::all();
+
+        $user = user();
+
+        if ($user->role_level >= 3) {
+            $comments = Comment::all();
+        } else {
+            $comments = Comment::where(['user_id' => $user->id]);
+        }
 
         return view('manage.comment.index', ['comments' => $comments]);
     }
@@ -35,7 +42,7 @@ class CommentController extends Controller
         $comment->message = $request->comment;
         $comment->user_id = user()->id ?? null;
         $comment->news_id = $request->id;
-       
+
         $comment->create();
 
         Session::flash('success', "Yorum başarıyla eklendi.");
@@ -57,11 +64,16 @@ class CommentController extends Controller
         $comment = Comment::find($request->id);
 
         if ($comment == null) {
-            throw new NotFoundException();            
+            throw new NotFoundException();
+        }
+
+        $user = user();
+
+        if ($user->role_level < 3 && $user->id != $comment->user_id) {
+            throw new NotFoundException();
         }
 
         return view('manage.comment.edit', ['comment' => $comment]);
- 
     }
 
     public function update(Request $request)
@@ -80,7 +92,12 @@ class CommentController extends Controller
         $comment = Comment::find($request->id);
 
         if ($comment == null) {
-            throw new NotFoundException();            
+            throw new NotFoundException();
+        }
+
+        $user = user();
+        if ($user->role_level < 3 && $user->id != $comment->user_id) {
+            throw new NotFoundException();
         }
 
         $comment->message = $request->message;
@@ -106,9 +123,14 @@ class CommentController extends Controller
         $comment = Comment::find($request->id);
 
         if ($comment == null) {
-            throw new NotFoundException();            
+            throw new NotFoundException();
         }
-        
+
+        $user = user();
+        if ($user->role_level < 3 && $user->id != $comment->user_id) {
+            throw new NotFoundException();
+        }
+
         $comment->delete();
 
         Session::flash('success', "Yorum başarıyla silindi.");

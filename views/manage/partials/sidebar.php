@@ -43,52 +43,59 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="<?= route('manage.category.index') ?>" class="nav-link ">
-                            <i class="nav-icon fas  fa-spell-check"></i>
-                            <p>
-                                Kategoriler
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?= route('manage.category.index') ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Kategori İşlemleri</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= route('manage.category.create') ?>" class="nav-link">
-                                    <i class="fas fa-plus nav-icon"></i>
-                                    <p>Yeni Kategori</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link ">
-                            <i class="nav-icon fas fa-newspaper"></i>
-                            <p>
-                                Haberler
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?= route('manage.news.index') ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Haber İşlemleri</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= route('manage.news.create') ?>" class="nav-link">
-                                    <i class="fas fa-plus nav-icon"></i>
-                                    <p>Yeni Haber</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+
+                    <?php if (user()->role_level >= 3) : ?>
+                        <li class="nav-item">
+                            <a href="<?= route('manage.category.index') ?>" class="nav-link ">
+                                <i class="nav-icon fas  fa-spell-check"></i>
+                                <p>
+                                    Kategoriler
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= route('manage.category.index') ?>" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Kategori İşlemleri</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= route('manage.category.create') ?>" class="nav-link">
+                                        <i class="fas fa-plus nav-icon"></i>
+                                        <p>Yeni Kategori</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php endif ?>
+
+                    <?php if (user()->role_level >= 2) : ?>
+                        <li class="nav-item">
+                            <a href="" class="nav-link ">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Haberler
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= route('manage.news.index') ?>" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Haber İşlemleri</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= route('manage.news.create') ?>" class="nav-link">
+                                        <i class="fas fa-plus nav-icon"></i>
+                                        <p>Yeni Haber</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php endif ?>
+
                     <li class="nav-item">
                         <a href="<?= route('manage.comment.index') ?>" class="nav-link">
                             <i class="nav-icon fas fa-comments"></i>
@@ -97,6 +104,8 @@
                             </p>
                         </a>
                     </li>
+
+
                     <?php if (user()->role_level >= 3) : ?>
                         <li class="nav-item">
                             <a href="<?= route('manage.user.request.index') ?>" class="nav-link">
