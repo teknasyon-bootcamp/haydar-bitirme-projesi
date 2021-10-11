@@ -26,6 +26,9 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <p class="small text-muted font-italic">
+                Uyarı: Kategori silindiği takdirde kategoriye ait tüm haberler silinir.
+            </p>
             <div class="card">
                 <?php
 
