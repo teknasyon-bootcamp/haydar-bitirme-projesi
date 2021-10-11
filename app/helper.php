@@ -92,8 +92,12 @@ function csrfToken()
 
 function user()
 {
-    $user = User::find(Session::get('user_id'));
+    $user = null;
 
+    if (Session::get('user_id') != null) {
+        $user = User::find(Session::get('user_id'));
+    }
+   
     return $user;
 }
 
