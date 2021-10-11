@@ -82,7 +82,7 @@ function route(string $name, ?array $params = [])
         }
     }
 
-    throw new Exception("Route name not found : $name", 1);
+    throw new Exception("Route name not found : $name", 0);
 }
 
 function csrfToken()
