@@ -107,6 +107,17 @@
                             </a>
                         </li>
                     <?php endif ?>
+
+                    <?php if (user()->role_level >= 3) : ?>
+                        <li class="nav-item">
+                            <a href="<?= route('manage.user.index') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Kullanıcı Rolleri
+                                </p>
+                            </a>
+                        </li>
+                    <?php endif ?>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

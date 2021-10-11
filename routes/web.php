@@ -49,3 +49,5 @@ $app->router->delete('/manage/comment', [CommentController::class, 'destory'])->
 $app->router->get('/manage/account/deleteRequest', [UserController::class, 'requestView'])->name('manage.user.request.index');
 $app->router->post('/manage/account/deleteRequest', [UserController::class, 'request'])->name('manage.user.delete.request');
 $app->router->delete('/manage/account/deleteRequest', [UserController::class, 'destroy'])->name('manage.user.destroy');
+$app->router->get('/manage/accounts', [UserController::class, 'index'])->name('manage.user.index');
+$app->router->put('/manage/account/role/update', [UserController::class, 'roleUpdate'])->name('manage.user.role.update');
