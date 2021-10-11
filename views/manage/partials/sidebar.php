@@ -105,6 +105,15 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="<?= route('manage.user.news.seen') ?>" class="nav-link">
+                            <i class="nav-icon fas fa-book-reader"></i>
+                            <p>
+                                Okunan Haberler
+                            </p>
+                        </a>
+                    </li>
+
 
                     <?php if (user()->role_level >= 3) : ?>
                         <li class="nav-item">

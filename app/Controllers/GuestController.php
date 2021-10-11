@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\News;
 use App\Models\User;
+use App\Models\UserSeenNews;
 use Core\Controller;
 use Core\Request;
 
@@ -64,6 +65,21 @@ class GuestController extends Controller
         }
 
         $comments = Comment::where(['news_id' => $request->id]);
+
+        if (!isGuest()) {
+            $user = user();
+
+            $userSeenNews = UserSeenNews::where(['news_id' => $news->id, 'user_id' => $user->id]);
+
+            if ($userSeenNews == null) {
+                $userSeenNews = new UserSeenNews();
+                $userSeenNews->user_id = $user->id;
+                $userSeenNews->news_id = $news->id;
+
+                $userSeenNews->create();
+            }
+        }
+
         return view('news', ['categories' => $this->categories, 'news' => $news, 'comments' => $comments]);
     }
 }

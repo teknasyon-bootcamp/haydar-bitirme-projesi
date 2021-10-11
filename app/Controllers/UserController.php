@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Exceptions\NotFoundException;
 use App\Models\User;
+use App\Models\UserSeenNews;
 use Core\Controller;
 use Core\Request;
 use Core\Session\Session;
@@ -18,7 +19,7 @@ class UserController extends Controller
         $usersFiltered = [];
         $myRoleLevel = user()->role_level;
 
-        if ($myRoleLevel != 4 ) {
+        if ($myRoleLevel != 4) {
             foreach ($users as $key => $user) {
                 if ($user->role_level < $myRoleLevel) {
                     $usersFiltered[] = $user;
@@ -27,7 +28,7 @@ class UserController extends Controller
         } else {
             $usersFiltered = $users;
         }
-       
+
 
         return view('manage.user.index', ['users' => $usersFiltered]);
     }
@@ -190,9 +191,9 @@ class UserController extends Controller
         }
 
         // I never call same db query twice B-)
-        $myRoleLevel = user()->role_level ; 
+        $myRoleLevel = user()->role_level;
 
-        if ($request->role_level >=  $myRoleLevel && $myRoleLevel != 4 ) {
+        if ($request->role_level >=  $myRoleLevel && $myRoleLevel != 4) {
             $request->addHandlerError('roleNotAllowed', "Kullanıcıya kendi yetki seviyeniz ve üstündeki yetkileri veremezsiniz.");
             back();
         }
@@ -209,5 +210,14 @@ class UserController extends Controller
         Session::flash('success',  'Kullanıcı rolü başarıyla değiştirildi');
 
         back();
+    }
+
+    public function seenNews()
+    {
+        $user = user();
+
+        $userSeenNews = UserSeenNews::where(['user_id' => $user->id]);
+
+        return view('manage.user.seenNews', ['userSeenNews' => $userSeenNews]);
     }
 }
