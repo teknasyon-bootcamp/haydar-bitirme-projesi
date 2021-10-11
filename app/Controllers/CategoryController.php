@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\NotFoundException;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\UsersCategories;
@@ -36,12 +37,12 @@ class CategoryController extends Controller
             ]
         );
 
-        $relation = UsersCategories::where(['category_id' => $request->id, 'user_id' => $request->user_id ]);
+        $relation = UsersCategories::where(['category_id' => $request->id, 'user_id' => $request->user_id]);
 
         if (array_key_exists(0, $relation)) {
             $request->addHandlerError('userNotExist', "Editör zaten kategoriye eklenmiş.");
             back();
-        } 
+        }
 
         $relation = new UsersCategories;
 
@@ -66,7 +67,11 @@ class CategoryController extends Controller
             ]
         );
 
-        $relation = UsersCategories::where(['user_id'=>$request->user_id])[0];
+        $relation = UsersCategories::where(['user_id' => $request->user_id])[0];
+
+        if ($relation == null) {
+            throw new NotFoundException();
+        }
 
         $relation->delete();
 
@@ -109,6 +114,11 @@ class CategoryController extends Controller
         );
 
         $category = Category::find($request->id);
+
+        if ($category == null ) {
+            throw new NotFoundException();
+        }
+
         $categoryEditors = $category->editors();
 
         $editors = User::where(['role_level' => 2]);
@@ -134,6 +144,10 @@ class CategoryController extends Controller
 
         $category = Category::find($request->id);
 
+        if ($category == null ) {
+            throw new NotFoundException();
+        }
+
         $category->name = $request->name;
 
         $category->update();
@@ -154,6 +168,10 @@ class CategoryController extends Controller
         );
 
         $category = Category::find($request->id);
+
+        if ($category == null ) {
+            throw new NotFoundException();
+        }
 
         $category->delete();
 
