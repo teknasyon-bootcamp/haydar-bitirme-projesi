@@ -14,7 +14,12 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::all();
+        $currentUser = user();
+        if ($currentUser->role_level >= 3) {
+            $news = News::all();
+        } else {
+            $news = News::where(['user_id' => $currentUser->id]);
+        }
 
         return view('manage.news.index', ['news' => $news]);
     }
@@ -57,8 +62,23 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->content = $request->content;
         $news->image = $newCoverImageName;
-        $news->category_id = $request->category_id;
-        $news->user_id = Session::get('user_id');
+
+        $user = user();
+        if ($user->role_level >= 3) {
+            $news->category_id = $request->category_id;
+        } else {
+
+            // User is a editör 
+
+            if (!$user->isValidEditorCategory($request->category_id)) {
+                $request->addHandlerError('roleNotAllowed', "Bu kategoriye haber ekleme yetkiniz yok.");
+                back();
+            }
+
+            $news->category_id = $request->category_id;
+        }
+
+        $news->user_id = $user->id;
 
         $news->create();
 
@@ -109,14 +129,14 @@ class NewsController extends Controller
 
         $news = News::find($request->id);
 
-        if ($news == null ) {
+        if ($news == null) {
             throw new NotFoundException();
         }
 
         $newCoverImageName = $request->cover_image->getRandomizeName();
 
         $request->cover_image->move("uploads/" . $newCoverImageName);
-        
+
         $news->title = $request->title;
         $news->content = $request->content;
         $news->category_id = $request->category_id;
@@ -143,7 +163,7 @@ class NewsController extends Controller
 
         $news = News::find($request->id);
 
-        if ($news == null ) {
+        if ($news == null) {
             throw new NotFoundException();
         }
 
