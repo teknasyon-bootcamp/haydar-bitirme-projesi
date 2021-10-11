@@ -57,7 +57,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="kategoriAdi">Yorum Adı : </label>
+                                    <label for="kategoriAdi">Yorum : </label>
                                     <textarea name="message" class="form-control" id="kategoriAdi" placeholder="Kategori Adı" cols="30" rows="10"><?= $comment->message ?></textarea>
                                 </div>
 
