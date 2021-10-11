@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\NotFoundException;
 use App\Models\User;
 use Core\Controller;
 use Core\Request;
@@ -25,7 +26,7 @@ class UserController extends Controller
                 'passwordConfirm' => 'Parola doğrulama'
             ]
         );
-        
+
         $user = new User;
 
         $user->name = $request->name;
@@ -35,8 +36,8 @@ class UserController extends Controller
 
         $newUserId = $user->create();
 
-        
-        Session::set('user_id',$newUserId);
+
+        Session::set('user_id', $newUserId);
         redirect('/');
     }
 
@@ -60,10 +61,40 @@ class UserController extends Controller
             $request->addHandlerError('userNotExist', "Verilen bilgilerle eşleşen kullanıcı bulunamadı.");
 
             return back();
-        }   
+        }
 
-        Session::set('user_id',$user[0]->id);
+        Session::set('user_id', $user[0]->id);
         redirect('/');
+    }
 
+    public function request(Request $request)
+    {
+        $request->validate(
+            [
+                'id' => 'required',
+            ],
+            [
+                'id' => 'Hesap No',
+            ]
+        );
+
+        $user = User::find($request->id);
+
+        if ($user == null) {
+            throw new NotFoundException();
+        }
+
+        $message = "Hesap silme isteği işlendi.";
+
+        if ($user->delete_request) {
+            $message = "Hesap silme isteği iptal edildi.";
+        }
+        $user->delete_request =  (int)!$user->delete_request ;
+
+        $user->update();
+
+        Session::flash('success',  $message);
+
+        back();
     }
 }

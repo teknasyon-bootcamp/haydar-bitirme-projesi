@@ -40,7 +40,10 @@ $app->router->post('/manage/news/create', [NewsController::class, 'store'])->nam
 $app->router->get('/manage/news/edit', [NewsController::class, 'edit'])->name('manage.news.edit');
 $app->router->put('/manage/news/edit', [NewsController::class, 'update'])->name('manage.news.update');
 $app->router->delete('/manage/news/delete', [NewsController::class, 'destroy'])->name('manage.news.destroy');
+
 $app->router->get('/manage/comment', [CommentController::class, 'index'])->name('manage.comment.index');
 $app->router->get('/manage/comment/edit', [CommentController::class, 'edit'])->name('manage.comment.edit');
 $app->router->put('/manage/comment/edit', [CommentController::class, 'update'])->name('manage.comment.update');
 $app->router->delete('/manage/comment', [CommentController::class, 'destory'])->name('manage.comment.destroy');
+
+$app->router->post('/manage/account/deleteRequest', [UserController::class, 'request'])->name('manage.user.delete.request');
