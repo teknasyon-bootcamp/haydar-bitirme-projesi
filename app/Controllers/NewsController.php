@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\NotFoundException;
 use App\Models\Category;
 use App\Models\News;
 use App\Models\User;
@@ -73,6 +74,10 @@ class NewsController extends Controller
         );
 
         $news = News::find($request->id);
+
+        if ($news == null) {
+            throw new NotFoundException();
+        }
         $categories = Category::all();
 
         return view('manage.news.edit', ['news' => $news, 'categories' => $categories, 'comments' => []]);
