@@ -75,7 +75,7 @@ class NewsController extends Controller
         $news = News::find($request->id);
         $categories = Category::all();
 
-        return view('manage.news.edit', ['news' => $news, 'categories' => $categories]);
+        return view('manage.news.edit', ['news' => $news, 'categories' => $categories, 'comments' => []]);
     }
 
     public function update(Request $request)

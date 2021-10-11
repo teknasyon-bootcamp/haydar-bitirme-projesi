@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Exceptions\NotFoundException;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\News;
 use App\Models\User;
 use Core\Controller;
@@ -62,6 +63,7 @@ class GuestController extends Controller
             throw new NotFoundException();
         }
 
-        return view('news', ['categories' => $this->categories, 'news' => $news]);
+        $comments = Comment::where(['news_id' => $request->id]);
+        return view('news', ['categories' => $this->categories, 'news' => $news, 'comments' => $comments]);
     }
 }

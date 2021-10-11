@@ -4,6 +4,7 @@ namespace Routes;
 
 use App\Controllers\AuthController;
 use App\Controllers\CategoryController;
+use App\Controllers\CommentController;
 use App\Controllers\GuestController;
 use App\Controllers\UserController;
 use App\Controllers\NewsController;
@@ -13,6 +14,7 @@ use App\Middlewares\RedirectIfAuthenticated;
 
 $app->router->get('/', [GuestController::class, 'welcome'])->name('welcome');
 $app->router->get('/news', [GuestController::class, 'news'])->name('news');
+$app->router->post('/manage/news/comment', [CommentController::class, 'store'])->name('manage.news.comment.store');
 $app->router->get('/category', [GuestController::class, 'category'])->name('category');
 
 $app->router->post('/logout', [AuthController::class, 'logout'])->name('logout');

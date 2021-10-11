@@ -22,12 +22,64 @@
                             </div>
                         </div>
                         <div class="col-lg-12 mt-4">
-                        <?= $news->content ?>
+                            <?= $news->content ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center row">
+                    <div class="d-flex flex-column col-md-8">
+                        <?php
+
+                        if ($errors->any()) {
+                            echo "<div class='alert alert-danger'>";
+                            echo "<ul>";
+                            foreach ($errors->getErrors() as $error) {
+                                echo "<li> $error </li>";
+                            }
+                            echo "</ul>";
+                            echo "</div>";
+                        }
+
+                        if ($success) {
+                            echo "<div class='alert alert-success'>";
+                            echo "<ul>";
+                            echo "<li> $success </li>";
+                            echo "</ul>";
+                            echo "</div>";
+                        }
+
+                        ?>
+                        <div class="coment-bottom bg-white p-2 px-4">
+                            <form action="<?= route('manage.news.comment.store', ['id' => $news->id]) ?>" method="post">
+                                <?= csrfToken() ?>
+                                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+
+                                    <input type="text" name="comment" class="form-control mr-3" placeholder="Yorumunuzu yazın...">
+                                    <button class="btn btn-primary" type="submit">Yorumla</button>
+
+                                </div>
+                            </form>
+
+                            <?php foreach ($comments as $comment) : ?>
+
+                                <div class="commented-section mt-2">
+                                    <div class="d-flex flex-row align-items-center commented-user">
+                                        <h5 class="mr-2"><?= $comment->userName() ?></h5><span class="dot mb-1"></span>
+                                    </div>
+                                    <div class="comment-text-sm">
+                                    <?= $comment->message ?>
+                                    </div>
+                                </div>
+
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 </div>
 <!-- main-panel ends -->
