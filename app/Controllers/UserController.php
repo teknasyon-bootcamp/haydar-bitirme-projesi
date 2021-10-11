@@ -113,7 +113,7 @@ class UserController extends Controller
             }
         }
 
-        return view('manage.deleteRequests', ['deleteRequests' => $deleteRequestsByRole]);
+        return view('manage.user.deleteRequests', ['deleteRequests' => $deleteRequestsByRole]);
     }
 
     public function destroy(Request $request)
