@@ -79,15 +79,17 @@ class Router
             }, $this->request);
         }
 
+
         // Call custom middlewares
 
         $middlewares = $this->routes[$method][$path]->middlewares ?? [];
 
         foreach ($middlewares as $key => $middleware) {
-            $this->request = Middleware::call($middleware, function ($param) {
+            Middleware::call($middleware, function ($param) {
                 return $param;
             }, $this->request);
         }
+
 
         /**
          * That means it is not required route and assing false 

@@ -3,6 +3,7 @@
 namespace Core\Middleware;
 
 use Closure;
+use Core\Request;
 
 class Middleware
 {
@@ -13,7 +14,7 @@ class Middleware
      * 
      * @return mixed
      */
-    public static function call($middlewareClass, $next, $request)
+    public static function call($middlewareClass, $next, Request $request)
     {
         call_user_func_array([new $middlewareClass, 'handle'], [$next, $request]);
     }
