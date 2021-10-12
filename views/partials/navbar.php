@@ -38,6 +38,10 @@
                   </button>
                 </li>
 
+                <li class="nav-item">
+                  <a class="nav-link" href="<?= route('welcome') ?>">Anasayfa</a>
+                </li>
+
                 <?php if ($categories != null) : ?>
                   <?php foreach ($categories as $category) : ?>
                     <li class="nav-item">
