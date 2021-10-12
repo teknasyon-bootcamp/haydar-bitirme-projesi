@@ -55,7 +55,7 @@ class GuestController extends Controller
         }
 
 
-        $news = News::where(['id' => $request->id]);
+        $news = News::where(['category_id' => $request->id]);
 
         return view('category', ['news' => $news, 'categories' => $this->categories, 'category' => $category, 'isFollowedThisCategory' => $isFollowedThisCategory]);
     }
