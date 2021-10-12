@@ -37,4 +37,25 @@ class News extends Model
         $end = strlen($this->content) > 200 ? "..." : "";
         return substr($this->content, 0, 200) . $end;
     }
+
+    public function isEditableByUser()
+    {
+        $user = user();
+
+        if ($user->role_level >= 3) {
+            return true;
+        }
+
+        $current = strtotime(date("Y-m-d"));
+        $newsDate = strtotime($this->created_at);
+
+        $datediff = $current - $newsDate;
+        $difference = floor($datediff / (60 * 60 * 24));
+
+        if ($difference < 1) {
+           return false;
+        }
+
+        return true;
+    }
 }

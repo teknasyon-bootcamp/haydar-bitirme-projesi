@@ -65,6 +65,7 @@
                                     <td><?= $newsItem->user()->name ?></td>
                                     <td><?= $newsItem->getDate() ?></td>
                                     <td>
+                                        <?php if($newsItem->isEditableByUser()) : ?>
                                         <a href="<?= route('manage.news.edit', ['id' => $newsItem->id]) ?>" class="btn btn-primary">Düzenle</a>
                                         <a onclick="document.getElementById('news-delete-form-<?= $newsItem->id ?>').submit();" class="btn btn-danger">Sil
                                         </a>
@@ -73,6 +74,10 @@
                                             <?= csrfToken() ?>
                                             <?= method('delete') ?>
                                         </form>
+
+                                        <?php else : ?>
+                                            <p>Düzenleme yapabilmeniz için yayınlanma tarihi üzerinden bir gün geçmesi gerekir.</p>
+                                        <?php endif ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
