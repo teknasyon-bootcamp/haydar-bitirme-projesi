@@ -25,10 +25,13 @@ class Route
         return $this;
     }
 
-    public function middleware($middlewareClass)
+    public function middleware(...$middlewareClasses)
     {
-        $this->middlewares [] = new $middlewareClass();
 
+        foreach ($middlewareClasses as $key => $middlewareClass) {
+            $this->middlewares [] = new $middlewareClass();
+        }
+        
         return $this;       
     }
 }
