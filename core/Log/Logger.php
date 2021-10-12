@@ -12,7 +12,7 @@ class Logger extends LogLevel implements LoggerInterface
 
     public function __construct()
     {
-        $this->logPath = AppRootDirectory . '/Stroage/Logs/app.log';
+        $this->logPath = AppRootDirectory . '/Storage/Logs/app.log';
         $this->time = date('d/m/Y G:i:s');
     }
 
