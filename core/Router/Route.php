@@ -1,6 +1,7 @@
 <?php
 
 namespace Core\Router;
+
 use Core\Middleware;
 
 class Route
@@ -27,11 +28,17 @@ class Route
 
     public function middleware(...$middlewareClasses)
     {
-
         foreach ($middlewareClasses as $key => $middlewareClass) {
-            $this->middlewares [] = new $middlewareClass();
+            // is middlewareClass a object of a class or just class
+            if (is_object($middlewareClass)) {
+                // object
+                $this->middlewares[] = $middlewareClass;
+            } else {
+                // class
+                $this->middlewares[] = new $middlewareClass();
+            }
         }
-        
-        return $this;       
+
+        return $this;
     }
 }
