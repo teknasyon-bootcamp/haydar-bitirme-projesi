@@ -41,7 +41,13 @@ class CommentController extends Controller
         $comment = new Comment;
 
         $comment->message = $request->comment;
-        $comment->user_id = user()->id ?? null;
+
+        if ($request->anonim) {
+            $comment->user_id = null;
+        } else {
+            $comment->user_id = user()->id ?? null;
+        }
+
         $comment->news_id = $request->id;
 
         $comment->create();

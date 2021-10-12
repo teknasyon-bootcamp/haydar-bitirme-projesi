@@ -56,6 +56,15 @@
                                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
 
                                     <input type="text" name="comment" class="form-control mr-3" placeholder="Yorumunuzu yazın...">
+
+                                    <?php if (!isGuest()) : ?>
+                                        <div class="form-check pb-3">
+                                            <input class="form-check-input" type="checkbox" name="anonim" id="anonymous">
+                                            <label class="form-check-label text-muted font-italic small mr-3" for="anonymous">
+                                                Anonim olarak gönder
+                                            </label>
+                                        </div>
+                                    <?php endif; ?>
                                     <button class="btn btn-primary" type="submit">Yorumla</button>
 
                                 </div>
@@ -68,7 +77,7 @@
                                         <h5 class="mr-2"><?= $comment->userName() ?></h5><span class="dot mb-1"></span>
                                     </div>
                                     <div class="comment-text-sm">
-                                    <?= $comment->message ?>
+                                        <?= $comment->message ?>
                                     </div>
                                 </div>
 
