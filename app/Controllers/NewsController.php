@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\ForbiddenException;
 use App\Exceptions\NotFoundException;
 use App\Models\Category;
 use App\Models\News;
@@ -133,6 +134,12 @@ class NewsController extends Controller
             throw new NotFoundException();
         }
 
+        $user = user();
+
+        if ($user->role_level < 3 && $news->user_id != $user->id) {
+            throw new ForbiddenException();            
+        }
+
         $newCoverImageName = $request->cover_image->getRandomizeName();
 
         $request->cover_image->move("uploads/" . $newCoverImageName);
@@ -165,6 +172,12 @@ class NewsController extends Controller
 
         if ($news == null) {
             throw new NotFoundException();
+        }
+
+        $user = user();
+
+        if ($user->role_level < 3 && $news->user_id != $user->id) {
+            throw new ForbiddenException();            
         }
 
 
