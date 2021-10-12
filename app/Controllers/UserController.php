@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Exceptions\NotFoundException;
 use App\Models\Category;
+use App\Models\News;
 use App\Models\User;
 use App\Models\UserFollowedCategories;
 use App\Models\UserSeenNews;
@@ -34,6 +35,21 @@ class UserController extends Controller
 
         return view('manage.user.index', ['users' => $usersFiltered]);
     }
+
+    public function main()
+    {
+        $news = [];
+
+        $user = user();
+        $followedModel = UserFollowedCategories::where(['user_id' => $user->id]);
+        foreach ($followedModel as $key => $model) {
+
+            // Combine array
+            $news += News::where(['category_id' => $model->category_id]);
+        }
+        return view('manage.main', ['news' => $news]);
+    }
+
     public function store(Request $request)
     {
         $request->validate(

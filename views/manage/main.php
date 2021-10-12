@@ -27,12 +27,31 @@
     <div class="content">
         <div class="container-fluid">
 
-        
+        <div class="card">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Takip Edilen Kategorilerden Haberler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (isset($news)) : ?>
+                            <?php foreach ($news as $item) : ?>
+                                <tr>
+                                    <td> <a href="<?= route('news', ['id' => $item->id]) ?>"><?= $item->title ?></a></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif ?>
+                    </tbody>
+                </table>
+
+            </div>
+
             <div class="row">
                 <div class="card">
                     <form action="<?= route('manage.user.delete.request', ['id' => user()->id]) ?>" method="post">
                         <?= csrfToken() ?>
-                        <?php if (! user()->delete_request) : ?>
+                        <?php if (!user()->delete_request) : ?>
                             <button class="btn btn-danger">Hesap Silme İsteği Gönder</button>
                         <?php else : ?>
                             <button class="btn btn-primary">Hesap Silme İsteğini İptal Et</button>

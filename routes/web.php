@@ -23,7 +23,7 @@ $app->router->post('/register', [UserController::class, 'store']);
 $app->router->get('/login', [AuthController::class, 'login'])->name('login')->middleware(RedirectIfAuthenticated::class);;
 $app->router->post('/login', [UserController::class, 'login'])->name('login');
 
-$app->router->get('/manage/main', 'manage.main')->name('manage.main')->middleware(Auth::class);
+$app->router->get('/manage/main', [UserController::class, 'main'])->name('manage.main')->middleware(Auth::class);
 
 $app->router->get('/manage/categories', [CategoryController::class, 'index'])->name('manage.category.index');
 $app->router->post('/manage/category/editor/add', [CategoryController::class, 'editorAdd'])->name('manage.category.editor.add');
