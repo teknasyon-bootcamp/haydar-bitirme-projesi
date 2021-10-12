@@ -51,6 +51,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Haber Başlığı</th>
                             <th>Yorum</th>
                             <th>Yazar</th>
                             <th>İşlemler</th>
@@ -60,6 +61,7 @@
                         <?php if (isset($comments)) : ?>
                             <?php foreach ($comments as $comment) : ?>
                                 <tr>
+                                    <td><?= $comment->news()->title ?></td>
                                     <td><?= $comment->message ?></td>
                                     <td><?= $comment->userName() ?></td>
                                     <td>

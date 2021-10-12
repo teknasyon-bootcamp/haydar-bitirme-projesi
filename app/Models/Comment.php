@@ -14,4 +14,9 @@ class Comment extends Model
 
         return 'Anonim';
     }
+
+    public function news()
+    {
+        return News::find($this->news_id);
+    }
 }
