@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserFollowedCategories;
 use App\Models\UserSeenNews;
 use Core\Controller;
+use Core\Log\Logger;
 use Core\Request;
 
 class GuestController extends Controller
@@ -23,6 +24,9 @@ class GuestController extends Controller
     public function welcome()
     {
         $news = News::all();
+
+        $log = new Logger();
+        $log->info('Anasayfa ziyaret edildi.');
 
         return view('welcome', ['news' => $news, 'categories' => $this->categories]);
     }
@@ -40,7 +44,10 @@ class GuestController extends Controller
 
         $category = Category::find($request->id);
 
+        $log = new Logger();
+
         if ($category == null) {
+            $log->notice('Olmayan bir kategori ziyaret edilmeye çalışıldı.');
             throw new NotFoundException();
         }
 
@@ -54,6 +61,7 @@ class GuestController extends Controller
             }
         }
 
+        $log->info("$category->id nolu kategori ziyaret edildi.");
 
         $news = News::where(['category_id' => $request->id]);
 
@@ -73,7 +81,10 @@ class GuestController extends Controller
 
         $news = News::find($request->id);
 
+        $log = new Logger();
+
         if ($news == null) {
+            $log->notice('Var olmayan bir haber ziyaret edilmeye çalışıldı.');
             throw new NotFoundException();
         }
 
@@ -89,7 +100,8 @@ class GuestController extends Controller
                 $userSeenNews->user_id = $user->id;
                 $userSeenNews->news_id = $news->id;
 
-                $userSeenNews->create();
+                $id = $userSeenNews->create();
+                $log->info("$id numaralı haber görülen haberlere eklendi.");
             }
         }
 
