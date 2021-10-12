@@ -50,7 +50,7 @@ $app->router->get('/manage/account/deleteRequest', [UserController::class, 'requ
 $app->router->post('/manage/account/deleteRequest', [UserController::class, 'request'])->name('manage.user.delete.request')->middleware(Auth::class);
 $app->router->delete('/manage/account/deleteRequest', [UserController::class, 'destroy'])->name('manage.user.destroy')->middleware(Auth::class, new VerifyRole(3));
 $app->router->get('/manage/accounts', [UserController::class, 'index'])->name('manage.user.index')->middleware(Auth::class, new VerifyRole(3));
-$app->router->put('/manage/account/role/update', [UserController::class, 'roleUpdate'])->name('manage.user.role.update')->middleware(Auth::class, new VerifyRole(4));
+$app->router->put('/manage/account/role/update', [UserController::class, 'roleUpdate'])->name('manage.user.role.update')->middleware(Auth::class, new VerifyRole(3));
 $app->router->get('/manage/account/news/seen', [UserController::class, 'seenNews'])->name('manage.user.news.seen')->middleware(Auth::class);
 
 $app->router->put('/manage/account/follow/category', [UserController::class, 'requestFollow'])->name('manage.user.follow.category')->middleware(Auth::class);

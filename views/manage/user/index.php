@@ -72,8 +72,10 @@
                                                     <select name="role_level" class="form-control" id="role">
                                                         <option <?= $user->role_level == 1 ? 'selected' : '' ?> value="1">Kullanıcı</option>
                                                         <option <?= $user->role_level == 2 ? 'selected' : '' ?> value="2">Editör</option>
+                                                        <?php if(user()->role_level > 3) : ?>
                                                         <option <?= $user->role_level == 3 ? 'selected' : '' ?> value="3">Moderatör</option>
                                                         <option <?= $user->role_level == 4 ? 'selected' : '' ?> value="4">Yönetici</option>
+                                                        <?php endif ?>
                                                     </select>
                                                 </div>
 
