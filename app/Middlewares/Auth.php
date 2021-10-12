@@ -13,7 +13,6 @@ class Auth implements MiddlewareInterface
         if (isGuest()) {
             throw new ForbiddenException();
         }
-        $request->dd = "htrhrt";
         return $next($request);
     }
 }
