@@ -10,7 +10,7 @@ class ForbiddenException extends Exception
     {
         $this->message = "Sunucuya haddinizi ve yetkinizi aşan bir istek yaptığınız ve yakalandığınız
         anlamına geliyor. Çok ufakta olsa murphy kuralları gereği yanlış alarm da olabilir ancak
-        orayı çok da şey edemeyeceğiz. Bu saatteb sonra sizi ancak loglar paklar.";
+        orayı çok da şey edemeyeceğiz. Bu saatten sonra sizi ancak loglar paklar.";
         $this->code = 403;
     }
 
