@@ -16,6 +16,11 @@ class Middleware
      */
     public static function call($middlewareClass, $next, Request $request)
     {
-        call_user_func_array([new $middlewareClass, 'handle'], [$next, $request]);
+        if (method_exists($middlewareClass, '__construct')) {
+            call_user_func_array([$middlewareClass,'handle'], [$next, $request]);
+        } else {
+            call_user_func_array([new $middlewareClass, 'handle'], [$next, $request]);
+        }
+       
     }
 }
