@@ -193,6 +193,8 @@ abstract class Database
         // Serialize parts of the query
         $properties = $this->serialize();
 
+        self::defineTableName();
+
         $query = "UPDATE " . self::$tableName . " SET " . self::$tableSetParams . " WHERE id=:id";
         $namedQuery = self::connect()->prepare($query);
 
