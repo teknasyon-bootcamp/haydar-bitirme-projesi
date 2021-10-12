@@ -52,3 +52,5 @@ $app->router->delete('/manage/account/deleteRequest', [UserController::class, 'd
 $app->router->get('/manage/accounts', [UserController::class, 'index'])->name('manage.user.index');
 $app->router->put('/manage/account/role/update', [UserController::class, 'roleUpdate'])->name('manage.user.role.update');
 $app->router->get('/manage/account/news/seen', [UserController::class, 'seenNews'])->name('manage.user.news.seen');
+
+$app->router->put('/manage/account/follow/category', [UserController::class, 'requestFollow'])->name('manage.user.follow.category');

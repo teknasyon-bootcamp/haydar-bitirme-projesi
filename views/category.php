@@ -5,6 +5,23 @@
 <!-- partial -->
 <div class="content-wrapper">
     <div class="container">
+        <?php if (!isGuest()) : ?>
+            <div class="row">
+
+                <div class="card mx-auto">
+                    <form action="<?= route('manage.user.follow.category', ['id' => $category->id]) ?>" method="post">
+                        <?= csrfToken() ?>
+                        <?= method('put') ?>
+                        <?php if ($isFollowedThisCategory) : ?>
+                            <button class="btn btn-danger">Takibi Bırak</button>
+                        <?php else : ?>
+                            <button class="btn btn-primary"> Takip Et</button>
+                        <?php endif ?>
+                    </form>
+                </div>
+
+            </div>
+        <?php endif ?>
         <div class="col-sm-12">
             <div class="card aos-init aos-animate" data-aos="fade-up">
                 <div class="card-body">
@@ -26,7 +43,7 @@
                                     </div>
                                     <div class="col-sm-8 grid-margin">
                                         <h2 class="font-weight-600 mb-2">
-                                        <a href="<?= route('news', ['id' => $newsItem->id]) ?>"><?= $newsItem->title ?></a> 
+                                            <a href="<?= route('news', ['id' => $newsItem->id]) ?>"><?= $newsItem->title ?></a>
                                         </h2>
                                         <p class="fs-15">
                                             <?= $newsItem->getSummary() ?>

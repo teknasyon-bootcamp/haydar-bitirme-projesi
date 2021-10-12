@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\News;
 use App\Models\User;
+use App\Models\UserFollowedCategories;
 use App\Models\UserSeenNews;
 use Core\Controller;
 use Core\Request;
@@ -38,13 +39,25 @@ class GuestController extends Controller
         );
 
         $category = Category::find($request->id);
-        $news = News::where(['id' => $request->id]);
 
         if ($category == null) {
             throw new NotFoundException();
         }
 
-        return view('category', ['news' => $news, 'categories' => $this->categories, 'category' => $category]);
+        $isFollowedThisCategory = true;
+
+        if (!isGuest()) {
+            $followedModel = UserFollowedCategories::where(['user_id' => user()->id, 'category_id' => $category->id]);
+
+            if ($followedModel != null) {
+                $isFollowedThisCategory = false;
+            }
+        }
+
+
+        $news = News::where(['id' => $request->id]);
+
+        return view('category', ['news' => $news, 'categories' => $this->categories, 'category' => $category, 'isFollowedThisCategory' => $isFollowedThisCategory]);
     }
 
     public function news(Request $request)

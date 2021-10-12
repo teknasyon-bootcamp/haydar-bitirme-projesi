@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Exceptions\NotFoundException;
+use App\Models\Category;
 use App\Models\User;
+use App\Models\UserFollowedCategories;
 use App\Models\UserSeenNews;
 use Core\Controller;
 use Core\Request;
@@ -219,5 +221,43 @@ class UserController extends Controller
         $userSeenNews = UserSeenNews::where(['user_id' => $user->id]);
 
         return view('manage.user.seenNews', ['userSeenNews' => $userSeenNews]);
+    }
+
+
+    public function requestFollow(Request $request)
+    {
+        $request->validate(
+            [
+                'id' => 'required',
+            ],
+            [
+                'id' => 'Kategori No',
+            ]
+        );
+
+
+        $category = Category::find($request->id);
+
+        if ($category == null) {
+            throw new NotFoundException();
+        }
+
+        $user = user();
+
+        $checkFollowedModel = UserFollowedCategories::where(['user_id' => $user->id, 'category_id' => $request->id]);
+
+        if ($checkFollowedModel == null) {
+            // Follow
+            $followedModel = new UserFollowedCategories();
+            $followedModel->user_id = $user->id;
+            $followedModel->category_id = $request->id;
+
+            $followedModel->create();
+        } else {
+            //Unfollow
+            $checkFollowedModel[0]->delete();
+        }
+
+        back();
     }
 }
