@@ -6,6 +6,7 @@ use App\Exceptions\ForbiddenException;
 use App\Exceptions\NotFoundException;
 use App\Models\Comment;
 use Core\Controller;
+use Core\Log\Logger;
 use Core\Session\Session;
 use Core\Request;
 
@@ -21,6 +22,9 @@ class CommentController extends Controller
         } else {
             $comments = Comment::where(['user_id' => $user->id]);
         }
+
+        $log = new Logger();
+        $log->info("Panelde tüm yorumlar sayfası ziyaret ediliyor.");
 
         return view('manage.comment.index', ['comments' => $comments]);
     }
@@ -54,6 +58,9 @@ class CommentController extends Controller
 
         Session::flash('success', "Yorum başarıyla eklendi.");
 
+        $log = new Logger();
+        $log->info("$request->id nolu habere yeni yorum eklendi.");
+
         return back();
     }
 
@@ -70,16 +77,21 @@ class CommentController extends Controller
 
         $comment = Comment::find($request->id);
 
+        $log = new Logger();
+        
         if ($comment == null) {
+            $log->notice('Panelde var olmayan bir yorum düzenlenmeye çalışıldı.');
             throw new NotFoundException();
         }
 
         $user = user();
 
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
+            $log->critical('Yetki seviyesinin yetmediği bir yorum düzenlenmeye çalışıldı.');
             throw new ForbiddenException();
         }
 
+        $log->info("Panelde $comment->id nolu yorumun düzenleme sayfası ziyaret edildi.");
         return view('manage.comment.edit', ['comment' => $comment]);
     }
 
@@ -98,12 +110,15 @@ class CommentController extends Controller
 
         $comment = Comment::find($request->id);
 
+        $log = new Logger();
         if ($comment == null) {
+            $log->notice('Panelde var olmayan bir yorumu düzenlemek için put isteği attı.');
             throw new NotFoundException();
         }
 
         $user = user();
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
+            $log->critical('Yetki seviyesinin yetmediği bir yorum düzenlenmek için put isteği atıldı.');
             throw new ForbiddenException();
         }
 
@@ -113,6 +128,7 @@ class CommentController extends Controller
 
         Session::flash('success', "Yorum başarıyla güncellendi.");
 
+        $log->info("Panelde $comment->id nolu yorum düzenlendi.");
         return back();
     }
 
@@ -129,18 +145,24 @@ class CommentController extends Controller
 
         $comment = Comment::find($request->id);
 
+        $log = new Logger();
+
         if ($comment == null) {
+            $log->notice('Panelde var olmayan bir yorumu düzenlemek için put isteği attı.');
             throw new NotFoundException();
         }
 
         $user = user();
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
+            $log->critical('Yetki seviyesinin yetmediği bir yorum düzenlenmek için put isteği atıldı.');
             throw new ForbiddenException();
         }
 
         $comment->delete();
 
         Session::flash('success', "Yorum başarıyla silindi.");
+        
+        $log->info("Panelde $comment->id nolu yorum silindi.");
 
         return back();
     }
