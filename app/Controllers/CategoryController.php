@@ -19,7 +19,7 @@ class CategoryController extends Controller
         return view('manage.category.index', ['categories' => $categories]);
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return view('manage.category.create');
     }
