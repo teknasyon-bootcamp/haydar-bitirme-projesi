@@ -331,6 +331,7 @@ class UserController extends Controller
 
         $logsFiltered = '';
 
+        $log = new Logger();
         $currentUser = user();
 
         if ($currentUser->role_level == 3) {
