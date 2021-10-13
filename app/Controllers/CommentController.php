@@ -87,7 +87,7 @@ class CommentController extends Controller
         $user = user();
 
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
-            $log->critical('Yetki seviyesinin yetmediği bir yorum düzenlenmeye çalışıldı.');
+            $log->error('Yetki seviyesinin yetmediği bir yorum düzenlenmeye çalışıldı.');
             throw new ForbiddenException();
         }
 
@@ -118,7 +118,7 @@ class CommentController extends Controller
 
         $user = user();
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
-            $log->critical('Yetki seviyesinin yetmediği bir yorum düzenlenmek için put isteği atıldı.');
+            $log->error('Yetki seviyesinin yetmediği bir yorum düzenlenmek için put isteği atıldı.');
             throw new ForbiddenException();
         }
 
@@ -154,7 +154,7 @@ class CommentController extends Controller
 
         $user = user();
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
-            $log->critical('Yetki seviyesinin yetmediği bir yorum düzenlenmek için put isteği atıldı.');
+            $log->error('Yetki seviyesinin yetmediği bir yorum düzenlenmek için put isteği atıldı.');
             throw new ForbiddenException();
         }
 
