@@ -344,6 +344,7 @@ class UserController extends Controller
             $logsFiltered = file_get_contents(AppRootDirectory . "/storage/logs/app.log");
         }
 
+        $log->info("Kullanıcı aktiviteleri sayfası ziyaret ediliyor ");
         return view('manage.logs', ['logs' => $logsFiltered]);
     }
 }

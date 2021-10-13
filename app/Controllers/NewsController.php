@@ -228,23 +228,29 @@ class NewsController extends Controller
     {
         header('Content-Type: application/json; charset=utf-8');
 
+        $log = new Logger();
+
         if (isset($request->category)) {
             $news = News::where(['category_id' => $request->category]);
 
             if ($news == null) {
                 http_response_code(404);
+                $log->error("API ile var olmayan bir haber isteniyor");
                 return json_encode(['message' => "News Not Found"]);
             }
 
+            $log->info("API ile habeler dizisi yollanıyor");
             return json_encode($news);
         } else {
             $news = News::all();
 
             if ($news == null) {
                 http_response_code(404);
+                $log->error("API ile veritabanın kayıtlı haber olmamasına rağmen haberler isteniyor");
                 return json_encode(['message' => "News Not Found"]);
             }
 
+            $log->info("API ile habeler dizisi yollanıyor");
             return json_encode($news);
         }
     }
@@ -253,13 +259,17 @@ class NewsController extends Controller
     {
         $news = News::find($request->id);
 
+        $log = new Logger();
+
         header('Content-Type: application/json; charset=utf-8');
 
         if ($news == null) {
             http_response_code(404);
+            $log->error("API ile var olmayan bir haber isteniyor");
             return json_encode(['message' => "News Not Found"]);
         }
 
+        $log->info("API ile $news->id haberinin verisi yollanıyor");
         return json_encode($news);
     }
 }
