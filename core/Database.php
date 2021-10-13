@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Core\Log\Logger;
+
 abstract class Database
 {
     private static $tableColumns = "";
@@ -26,6 +28,10 @@ abstract class Database
             $pdo = new \PDO($dsn, $dbUser, $dbPass);
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $ex) {
+
+            $log = new Logger();
+            $log->emergency("İmdaat, yetişin veritabanına bağlanılamıyor");
+            
             exit("Veritabanına bağlanırken bir hata ile karşılaşıldı : {$ex->getMessage()}");
         }
 
