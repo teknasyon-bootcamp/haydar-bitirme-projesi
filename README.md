@@ -26,6 +26,11 @@ Göz sağlığına önem verenlerin en az 3 haber eklemesini öneririz.
 
 - Bakım modu fark edebileceğiniz gibi .env dosyasındaki **MAINTANCE_MODE** ile tetitleniyor. 
 
+## API Bağlantıları
+- http://localhost/api/news?id={Category_id}}
+- http://localhost/api/news
+- http://localhost/api/news/detail?id={news_id}
+
 
 ### Kullanıcı Giriş Bilgileri
 
@@ -34,3 +39,5 @@ Tüm kullanıcıların şifresi : **haydaraTamPuanVereceğim**
  - Editör Rolü editor@a.com 
  - Moderatör Rolü mod@a.com
  - Kullanıcı Rolü halk@a.com
+
+
