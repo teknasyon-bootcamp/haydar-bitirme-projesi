@@ -8,7 +8,7 @@
             "Core\\": "core/",
             "Routes\\": "routes/"
         },
-        "files" : [
+        "files": [
             "app/helper.php"
         ]
     },
@@ -18,5 +18,10 @@
             "email": "haydarsahin34@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "scripts": {
+        "pre-install-cmd": [
+            "php -r \"copy('.env.example', '.env');\""
+        ]
+    }
 }
