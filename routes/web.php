@@ -56,3 +56,7 @@ $app->router->get('/manage/account/news/seen', [UserController::class, 'seenNews
 $app->router->put('/manage/account/follow/category', [UserController::class, 'requestFollow'])->name('manage.user.follow.category')->middleware(Auth::class);
 
 $app->router->get('/manage/accounts/logs', [UserController::class, 'logs'])->name('manage.user.logs')->middleware(Auth::class, new VerifyRole(3));
+
+
+$app->router->get('/api/news', [NewsController::class, 'apiIndex'])->name('api.news');
+$app->router->get('/api/news/detail', [NewsController::class, 'apiShow'])->name('api.newsItem');

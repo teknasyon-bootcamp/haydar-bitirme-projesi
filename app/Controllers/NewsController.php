@@ -124,7 +124,7 @@ class NewsController extends Controller
         }
         $categories = Category::all();
 
-       
+
         $log->info("Panelde $news->id nolu haberin düzenleme sayfası ziyaret ediliyor");
 
         return view('manage.news.edit', ['news' => $news, 'categories' => $categories, 'comments' => []]);
@@ -222,5 +222,44 @@ class NewsController extends Controller
 
         $log->info("$news->id nolu haber silindi");
         return back();
+    }
+
+    public function apiIndex(Request $request)
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (isset($request->category)) {
+            $news = News::where(['category_id' => $request->category]);
+
+            if ($news == null) {
+                http_response_code(404);
+                return json_encode(['message' => "News Not Found"]);
+            }
+
+            return json_encode($news);
+        } else {
+            $news = News::all();
+
+            if ($news == null) {
+                http_response_code(404);
+                return json_encode(['message' => "News Not Found"]);
+            }
+
+            return json_encode($news);
+        }
+    }
+
+    public function apiShow(Request $request)
+    {
+        $news = News::find($request->id);
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($news == null) {
+            http_response_code(404);
+            return json_encode(['message' => "News Not Found"]);
+        }
+
+        return json_encode($news);
     }
 }
