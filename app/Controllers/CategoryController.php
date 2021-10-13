@@ -57,7 +57,7 @@ class CategoryController extends Controller
             $user = User::find($request->user_id);
 
             if ($user == null || $user->role_level >= 3) {
-                $log->critical("Panelde  kullanıcı yetkisini yetmediği bir kullanıcıya kategori eklenmeye çalışıldı.");
+                $log->error("Panelde  kullanıcı yetkisini yetmediği bir kullanıcıya kategori eklenmeye çalışıldı.");
                 $request->addHandlerError('roleNotAllowed', "Kendi yetki seviyenizi aşan kullanıcılarda değişiklik yapamazsınız.");
                 back();
             }
@@ -92,7 +92,7 @@ class CategoryController extends Controller
         $relation = UsersCategories::where(['user_id' => $request->user_id])[0];
 
         if ($relation == null) {
-            $log->notice('Panelde var olmayan bir editör-kategori yetkisi silinmeye çalışıldı.');
+            $log->error('Panelde var olmayan bir editör-kategori yetkisi silinmeye çalışıldı.');
             throw new NotFoundException();
         }
 
@@ -146,7 +146,7 @@ class CategoryController extends Controller
         $category = Category::find($request->id);
 
         if ($category == null) {
-            $log->notice('Panelde var olmayan bir kategori sayfası ziyaret edilmeye çalışıldı');
+            $log->error('Panelde var olmayan bir kategori sayfası ziyaret edilmeye çalışıldı');
             throw new NotFoundException();
         }
 
@@ -179,7 +179,7 @@ class CategoryController extends Controller
         $category = Category::find($request->id);
 
         if ($category == null) {
-            $log->notice('Panelde var olmayan bir kategori güncellemeye çalışıldı');
+            $log->error('Panelde var olmayan bir kategori güncellemeye çalışıldı');
             throw new NotFoundException();
         }
 
@@ -208,14 +208,14 @@ class CategoryController extends Controller
         $category = Category::find($request->id);
 
         if ($category == null) {
-            $log->notice('Panelde var olmayan bir kategori silinmeye çalışıldı');
+            $log->error('Panelde var olmayan bir kategori silinmeye çalışıldı');
             throw new NotFoundException();
         }
 
         $category->delete();
 
         Session::flash('success', "Kategori başarıyla silindi.");
-        $log->notice('Panelde var olmayan bir kategori silinmeye çalışıldı');
+        $log->info("$category->id nolu kategori silindi");
         
         return back();
     }
