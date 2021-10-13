@@ -25,6 +25,7 @@ class GuestController extends Controller
     {
         $news = News::all();
 
+        $news = array_reverse($news);
         $log = new Logger();
         $log->info('Anasayfa ziyaret edildi.');
 
@@ -64,6 +65,8 @@ class GuestController extends Controller
         $log->info("$category->id nolu kategori ziyaret edildi.");
 
         $news = News::where(['category_id' => $request->id]);
+
+        $news = array_reverse($news);
 
         return view('category', ['news' => $news, 'categories' => $this->categories, 'category' => $category, 'isFollowedThisCategory' => $isFollowedThisCategory]);
     }
