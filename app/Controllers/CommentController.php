@@ -80,18 +80,18 @@ class CommentController extends Controller
         $log = new Logger();
         
         if ($comment == null) {
-            $log->notice('Panelde var olmayan bir yorum düzenlenmeye çalışıldı.');
+            $log->error('Panelde var olmayan bir yorum düzenlenmeye çalışılıyor');
             throw new NotFoundException();
         }
 
         $user = user();
 
         if ($user->role_level < 3 && $user->id != $comment->user_id) {
-            $log->error('Yetki seviyesinin yetmediği bir yorum düzenlenmeye çalışıldı.');
+            $log->error('Yetki seviyesinin yetmediği bir yorum düzenlenmeye çalışılıyor');
             throw new ForbiddenException();
         }
 
-        $log->info("Panelde $comment->id nolu yorumun düzenleme sayfası ziyaret edildi.");
+        $log->info("Panelde $comment->id nolu yorumun düzenleme sayfası ziyaret ediliyor");
         return view('manage.comment.edit', ['comment' => $comment]);
     }
 
@@ -112,7 +112,7 @@ class CommentController extends Controller
 
         $log = new Logger();
         if ($comment == null) {
-            $log->notice('Panelde var olmayan bir yorumu düzenlemek için put isteği attı.');
+            $log->error('Panelde var olmayan bir yorumu düzenlemek için put isteği attı.');
             throw new NotFoundException();
         }
 
@@ -148,7 +148,7 @@ class CommentController extends Controller
         $log = new Logger();
 
         if ($comment == null) {
-            $log->notice('Panelde var olmayan bir yorumu düzenlemek için put isteği attı.');
+            $log->error('Panelde var olmayan bir yorumu düzenlemek için put isteği attı.');
             throw new NotFoundException();
         }
 
