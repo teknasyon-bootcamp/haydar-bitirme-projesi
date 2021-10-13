@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserFollowedCategories;
 use App\Models\UserSeenNews;
 use Core\Controller;
+use Core\Log\Logger;
 use Core\Request;
 use Core\Session\Session;
 
@@ -32,6 +33,9 @@ class UserController extends Controller
             $usersFiltered = $users;
         }
 
+        $log = new Logger();
+
+        $log->info('Panelde kullanıcı rolleri sayfası ziyaret ediliyor');
 
         return view('manage.user.index', ['users' => $usersFiltered]);
     }
@@ -47,6 +51,11 @@ class UserController extends Controller
             // Combine array
             $news += News::where(['category_id' => $model->category_id]);
         }
+
+        $log = new Logger();
+
+        $log->info('Panelde takip edilen kategoriler sayfası ziyaret ediliyor');
+
         return view('manage.main', ['news' => $news]);
     }
 
@@ -78,6 +87,10 @@ class UserController extends Controller
 
 
         Session::set('user_id', $newUserId);
+
+        $log = new Logger();
+        $log->info("$newUserId nolu kullanıcı oluşturuldu");
+
         redirect('/');
     }
 
@@ -97,13 +110,17 @@ class UserController extends Controller
 
         $user = User::where(['email' => $request->email]);
 
+        $log = new Logger();
+
         if (empty($user) || !password_verify($request->password, $user[0]->password)) {
             $request->addHandlerError('userNotExist', "Verilen bilgilerle eşleşen kullanıcı bulunamadı.");
-
+            $log->notice('Kullanıcı giriş bilgileri yanlış girildi');
             return back();
         }
 
         Session::set('user_id', $user[0]->id);
+
+        $log->info($user[0]->id . " nolu kullanıcı giriş yaptı");
         redirect('/');
     }
 
@@ -120,7 +137,10 @@ class UserController extends Controller
 
         $user = User::find($request->id);
 
+        $log = new Logger();
+
         if ($user == null) {
+            $log->error('Var olmayan bir kullanıcı için hesap silme isteği yollandı.');
             throw new NotFoundException();
         }
 
@@ -134,6 +154,8 @@ class UserController extends Controller
         $user->update();
 
         Session::flash('success',  $message);
+
+        $log->info("$user->id nolu kullanıcının hesap silme isteği işlendi");
 
         back();
     }
@@ -153,6 +175,9 @@ class UserController extends Controller
             }
         }
 
+        $log = new Logger();
+
+        $log->info("Panelde kullanıcı silme istekleri sayfası ziyaret ediliyor");
         return view('manage.user.deleteRequests', ['deleteRequests' => $deleteRequestsByRole]);
     }
 
@@ -169,16 +194,22 @@ class UserController extends Controller
 
         $user = User::find($request->id);
 
+        $log = new Logger();
+
         if ($user == null) {
+            $log->error('Var olmayan bir kullanıcının hesabı silinmeye çalışılıyor');
             throw new NotFoundException();
         } elseif ($user->role_level >= user()->role_level) {
             $request->addHandlerError('roleNotAllowed', "Kendi yetki seviyenizin üstündeki kullanıcıları silemezsiniz.");
+            $log->error('Yetki seviyesinin üzerindeki bir kullanıcının hesabı silinmeye çalışılıyor');
             back();
         }
 
         $user->delete();
 
         Session::flash('success',  'Kullanıcı başarıyla silindi.');
+
+        $log->error("$user->id nolu kullanıcının hesabı");
 
         back();
     }
@@ -199,12 +230,16 @@ class UserController extends Controller
 
         $user = User::find($request->id);
 
+        $log = new Logger();
+
         if ($user == null) {
+            $log->error('Var olmayan bir kullanıcının rolü değiştirilmeye çalışılıyor');
             throw new NotFoundException();
         }
 
         if (!in_array($request->role_level, [1, 2, 3, 4])) {
             $request->addHandlerError('invalidRole', "Geçersiz rol.");
+            $log->error("$user->id nolu kullanıcının rolü geçersiz bir rol seviyesi ile değiştirilmeye çalışılıyor");
             back();
         }
 
@@ -213,11 +248,13 @@ class UserController extends Controller
 
         if ($request->role_level >=  $myRoleLevel && $myRoleLevel != 4) {
             $request->addHandlerError('roleNotAllowed', "Kullanıcıya kendi yetki seviyeniz ve üstündeki yetkileri veremezsiniz.");
+            $log->error("Vermeye kullanıcın yetkisinin yetmeyeceği bir rol seviyesi verilmeye çalışılıyor");
             back();
         }
 
         if ($user->role_level >=  $myRoleLevel) {
             $request->addHandlerError('roleNotAllowed', "Yöneticinin yetkisini ancak kendisi değiştirebilir.");
+            $log->error("Yöneticinin rol seviyesi değiştirilmeye çalışılıyor");
             back();
         }
 
@@ -227,6 +264,8 @@ class UserController extends Controller
 
         Session::flash('success',  'Kullanıcı rolü başarıyla değiştirildi');
 
+        $log->info("$user->id nolu kullanıcının rol seviyesi değiştirildi");
+
         back();
     }
 
@@ -235,6 +274,10 @@ class UserController extends Controller
         $user = user();
 
         $userSeenNews = UserSeenNews::where(['user_id' => $user->id]);
+
+        $log = new Logger();
+
+        $log->info("Panelde kullanıcının okuduğu haberler sayfası açılıyor");
 
         return view('manage.user.seenNews', ['userSeenNews' => $userSeenNews]);
     }
@@ -254,7 +297,10 @@ class UserController extends Controller
 
         $category = Category::find($request->id);
 
+        $log = new Logger();
+
         if ($category == null) {
+            $log->error("Var olmayan bir kategori takip edilmeye çalışılıyor");
             throw new NotFoundException();
         }
 
@@ -273,6 +319,8 @@ class UserController extends Controller
             //Unfollow
             $checkFollowedModel[0]->delete();
         }
+
+        $log->info("$category->id nolu kategori için kategori isteği atılıyor");
 
         back();
     }
