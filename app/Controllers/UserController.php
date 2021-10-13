@@ -324,4 +324,26 @@ class UserController extends Controller
 
         back();
     }
+
+    public function logs()
+    {
+        $logsArray = file(AppRootDirectory . "/storage/logs/app.log");
+
+        $logsFiltered = '';
+
+        $currentUser = user();
+
+        if ($currentUser->role_level == 3) {
+            foreach ($logsArray as $key => $log) {
+                $firstWord = strtok($log, ' ');
+                if ($firstWord != "Yönetici" && $firstWord != "Moderatör") {
+                    $logsFiltered .= $log;
+                }
+            }
+        } else {
+            $logsFiltered = file_get_contents(AppRootDirectory . "/storage/logs/app.log");
+        }
+
+        return view('manage.logs', ['logs' => $logsFiltered]);
+    }
 }

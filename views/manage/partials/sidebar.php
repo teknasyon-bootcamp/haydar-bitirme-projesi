@@ -21,7 +21,7 @@
             <!-- SidebarSearch Form -->
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control form-control-sidebar" type="search" placeholder="Arayan derviş..." aria-label="Search">
                     <div class="input-group-append">
                         <button class="btn btn-sidebar">
                             <i class="fas fa-search fa-fw"></i>
@@ -132,6 +132,17 @@
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Kullanıcı Rolleri
+                                </p>
+                            </a>
+                        </li>
+                    <?php endif ?>
+
+                    <?php if (user()->role_level >= 3) : ?>
+                        <li class="nav-item">
+                            <a href="<?= route('manage.user.logs') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-chart-line"></i>
+                                <p>
+                                    Kullanıcı Aktiviteleri
                                 </p>
                             </a>
                         </li>
