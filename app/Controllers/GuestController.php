@@ -47,7 +47,7 @@ class GuestController extends Controller
         $log = new Logger();
 
         if ($category == null) {
-            $log->notice('Olmayan bir kategori ziyaret edilmeye çalışıldı.');
+            $log->error('Olmayan bir kategori ziyaret edilmeye çalışıldı.');
             throw new NotFoundException();
         }
 
@@ -84,7 +84,7 @@ class GuestController extends Controller
         $log = new Logger();
 
         if ($news == null) {
-            $log->notice('Var olmayan bir haber ziyaret edilmeye çalışıldı.');
+            $log->error('Var olmayan bir haber ziyaret edilmeye çalışıldı.');
             throw new NotFoundException();
         }
 
