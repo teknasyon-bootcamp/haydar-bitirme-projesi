@@ -105,6 +105,8 @@ class GuestController extends Controller
             }
         }
 
+        $log->info("$news->id nolu haber ziyaret edildi.");
+
         return view('news', ['categories' => $this->categories, 'news' => $news, 'comments' => $comments]);
     }
 }
