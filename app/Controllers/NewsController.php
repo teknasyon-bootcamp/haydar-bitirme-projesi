@@ -119,7 +119,7 @@ class NewsController extends Controller
         $log = new Logger;
 
         if ($news == null) {
-            $log->notice("Panelde var olmayan bir haber düzenlenmeye çalışıldı.");
+            $log->error("Panelde var olmayan bir haber düzenlenmeye çalışıldı.");
             throw new NotFoundException();
         }
         $categories = Category::all();
@@ -155,7 +155,7 @@ class NewsController extends Controller
 
         if ($news == null) {
 
-            $log->notice("Panelde var olmayan bir haber için güncelleme isteği yollandı");
+            $log->error("Panelde var olmayan bir haber için güncelleme isteği yollandı");
             throw new NotFoundException();
         }
 
@@ -202,7 +202,7 @@ class NewsController extends Controller
 
         if ($news == null) {
 
-            $log->notice("Panelde var olmayan bir haber için silme isteği yollandı");
+            $log->error("Panelde var olmayan bir haber için silme isteği yollandı");
             throw new NotFoundException();
         }
 
