@@ -1,6 +1,6 @@
 # Haydar ŞAHİN'in Bitirme Projesi
 
-*Yaptığım hiçbir şeyden pişam değilim, aklım hep yapmadıklarımda...* - Haydar ŞAHİN :sunglasses: 
+*Yaptığım hiçbir şeyden pişman değilim, aklım hep yapmadıklarımda...* - Haydar ŞAHİN :sunglasses: 
 
 :white_check_mark: Tüm isterler yapılmıştır.
 
@@ -8,7 +8,7 @@
 
 :fire: Proje hiçbir harici paket kullanılmadan geliştirilmiştir.
 
-:thumbsdown: Zaman kısıt yüzünden projemde geliştirdiğim Router yapısında path üzerinden veri almayı yapamadım. Bu yüzden onun yerine get parametlerini kullanıyorum. Bunda aklım kaldı... :pleading_face: 
+:thumbsdown: Zaman kısıtı yüzünden projemde geliştirdiğim Router yapısında path üzerinden veri almayı yapamadım. Bu yüzden onun yerine get parametlerini kullanıyorum. Bunda aklım kaldı... :pleading_face: 
 
 Göz sağlığına önem verenlerin en az 3 haber eklemesini öneririz.
 
