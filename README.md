@@ -24,7 +24,7 @@ Göz sağlığına önem verenlerin en az 3 haber eklemesini öneririz.
 
 - Oluşan .env dosyasına veritabanı bilgilerini ekliyoruz.
 
-- Bakım modu fark edebileceğiniz gibi .env dosyasındaki **MAINTANCE_MODE** ile tetitleniyor. 
+- Bakım modu fark edebileceğiniz gibi .env dosyasındaki **MAINTANCE_MODE** ile tetikleniyor. 
 
 ## API Bağlantıları
 - http://localhost/api/news?id={Category_id}}
