@@ -52,13 +52,13 @@ class GuestController extends Controller
             throw new NotFoundException();
         }
 
-        $isFollowedThisCategory = true;
+        $isFollowedThisCategory = false;
 
         if (!isGuest()) {
             $followedModel = UserFollowedCategories::where(['user_id' => user()->id, 'category_id' => $category->id]);
 
             if ($followedModel != null) {
-                $isFollowedThisCategory = false;
+                $isFollowedThisCategory = true;
             }
         }
 
