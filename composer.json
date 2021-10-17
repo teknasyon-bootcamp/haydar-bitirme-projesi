@@ -18,7 +18,9 @@
             "email": "haydarsahin34@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^8.0"
+    },
     "scripts": {
         "pre-install-cmd": [
             "php -r \"copy('.env.example', '.env');\""
