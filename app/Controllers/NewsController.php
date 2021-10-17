@@ -17,7 +17,7 @@ class NewsController extends Controller
     public function index()
     {
         $currentUser = user();
-        if ($currentUser->role_level >= 3) {
+        if ($currentUser->role_level >= User::Moderator) {
             $news = News::all();
         } else {
             $news = News::where(['user_id' => $currentUser->id]);
@@ -32,7 +32,7 @@ class NewsController extends Controller
     public function create()
     {
         $currentUser = user();
-        if ($currentUser->role_level >= 3) {
+        if ($currentUser->role_level >= User::Moderator) {
             $categories = Category::all();
         } else {
             $categories = $currentUser->getEditorCategories();
@@ -75,7 +75,7 @@ class NewsController extends Controller
         $log = new Logger;
 
         $user = user();
-        if ($user->role_level >= 3) {
+        if ($user->role_level >= User::Moderator) {
             $news->category_id = $request->category_id;
         } else {
 
@@ -161,7 +161,7 @@ class NewsController extends Controller
 
         $user = user();
 
-        if ($user->role_level < 3 && $news->user_id != $user->id) {
+        if ($user->role_level < User::Moderator && $news->user_id != $user->id) {
             $log->error('Yetkinin yetmediği bir kullanıcıya ait haber güncellenmeye çalışıldı.');
             throw new ForbiddenException();
         }
@@ -208,7 +208,7 @@ class NewsController extends Controller
 
         $user = user();
 
-        if ($user->role_level < 3 && $news->user_id != $user->id) {
+        if ($user->role_level < User::Moderator && $news->user_id != $user->id) {
 
             $log->error('Yetkinin yetmediği bir kullanıcıya ait haber silinmeye çalışıldı.');
             throw new ForbiddenException();

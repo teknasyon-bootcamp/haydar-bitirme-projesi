@@ -56,7 +56,7 @@ class CategoryController extends Controller
         } else {
             $user = User::find($request->user_id);
 
-            if ($user == null || $user->role_level >= 3) {
+            if ($user == null || $user->role_level >= User::Moderator) {
                 $log->error("Panelde  kullanıcı yetkisini yetmediği bir kullanıcıya kategori eklenmeye çalışıldı.");
                 $request->addHandlerError('roleNotAllowed', "Kendi yetki seviyenizi aşan kullanıcılarda değişiklik yapamazsınız.");
                 back();
@@ -152,7 +152,7 @@ class CategoryController extends Controller
 
         $categoryEditors = $category->editors();
 
-        $editors = User::where(['role_level' => 2]);
+        $editors = User::where(['role_level' => User::Editor]);
 
         $log->info("Panelde $category->id nolu kategorinin düzenleme sayfası ziyaret ediliyor");
 

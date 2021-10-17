@@ -23,7 +23,7 @@ class UserController extends Controller
         $usersFiltered = [];
         $myRoleLevel = user()->role_level;
 
-        if ($myRoleLevel != 4) {
+        if ($myRoleLevel != User::Admin) {
             foreach ($users as $key => $user) {
                 if ($user->role_level < $myRoleLevel) {
                     $usersFiltered[] = $user;
@@ -246,7 +246,7 @@ class UserController extends Controller
         // I never call same db query twice B-)
         $myRoleLevel = user()->role_level;
 
-        if ($request->role_level >=  $myRoleLevel && $myRoleLevel != 4) {
+        if ($request->role_level >=  $myRoleLevel && $myRoleLevel != User::Admin) {
             $request->addHandlerError('roleNotAllowed', "Kullanıcıya kendi yetki seviyeniz ve üstündeki yetkileri veremezsiniz.");
             $log->error("Vermeye kullanıcın yetkisinin yetmeyeceği bir rol seviyesi verilmeye çalışılıyor");
             back();
@@ -334,7 +334,7 @@ class UserController extends Controller
         $log = new Logger();
         $currentUser = user();
 
-        if ($currentUser->role_level == 3) {
+        if ($currentUser->role_level == User::Moderator) {
             foreach ($logsArray as $key => $log) {
                 $firstWord = strtok($log, ' ');
                 if ($firstWord != "Yönetici" && $firstWord != "Moderatör") {

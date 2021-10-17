@@ -9,6 +9,7 @@ use Core\Controller;
 use Core\Log\Logger;
 use Core\Session\Session;
 use Core\Request;
+use App\Models\User;
 
 class CommentController extends Controller
 {
@@ -17,7 +18,7 @@ class CommentController extends Controller
 
         $user = user();
 
-        if ($user->role_level >= 3) {
+        if ($user->role_level >= User::Moderator) {
             $comments = Comment::all();
         } else {
             $comments = Comment::where(['user_id' => $user->id]);
@@ -86,7 +87,7 @@ class CommentController extends Controller
 
         $user = user();
 
-        if ($user->role_level < 3 && $user->id != $comment->user_id) {
+        if ($user->role_level < User::Moderator && $user->id != $comment->user_id) {
             $log->error('Yetki seviyesinin yetmediği bir yorum düzenlenmeye çalışılıyor');
             throw new ForbiddenException();
         }
@@ -117,7 +118,7 @@ class CommentController extends Controller
         }
 
         $user = user();
-        if ($user->role_level < 3 && $user->id != $comment->user_id) {
+        if ($user->role_level < User::Moderator && $user->id != $comment->user_id) {
             $log->error('Yetki seviyesinin yetmediği bir yorum düzenlenmek için put isteği atıldı.');
             throw new ForbiddenException();
         }
@@ -153,7 +154,7 @@ class CommentController extends Controller
         }
 
         $user = user();
-        if ($user->role_level < 3 && $user->id != $comment->user_id) {
+        if ($user->role_level < User::Moderator && $user->id != $comment->user_id) {
             $log->error('Yetki seviyesinin yetmediği bir yorum düzenlenmek için put isteği atıldı.');
             throw new ForbiddenException();
         }

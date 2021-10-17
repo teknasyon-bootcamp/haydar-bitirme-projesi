@@ -6,6 +6,11 @@ use Core\Model;
 
 class User extends Model
 {
+    public const User = 1;
+    public const Editor = 2;
+    public const Moderator = 3;
+    public const Admin = 4;
+
     public function getRole()
     {
         $roleLevel = $this->role_level;
