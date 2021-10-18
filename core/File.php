@@ -46,7 +46,7 @@ class File
         }
 
 
-        return $mimeTypeMatch === true && $extensionMatch === true;
+        return $mimeTypeMatch && $extensionMatch;
     }
 
     public function getRandomizeName()
